@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, redirect, request
 from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
@@ -14,3 +15,4 @@ def index():
 
 if __name__ == "__main__":
     app.run()
+
