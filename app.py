@@ -52,8 +52,13 @@ def load_user(user_id):
     return session.query(User).get(user_id)
 
 
-@app.route("/questions/", methods=["GET"])
+@app.route("/", methods=["GET"])
 def index():
+    return render_template("index.html")
+
+
+@app.route("/questions/", methods=["GET"])
+def questions():
     return render_template("questions.html", side_bar_title="Сұрақтарым")
 
 

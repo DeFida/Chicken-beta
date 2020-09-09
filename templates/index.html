@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+{% endblock %}
+
+{% block main_info %}
+<header class="header_index-page">
+    <h1 class="text_color_light header__title text_montserrat">Ғылым - теңіз,<br> білім - қайық</h1>
+    {% if not current_user.authenticated %}
+    {% block signin_or_signup %}{% endblock %}
+    {% endif %}
+</header>
+
+<main class="index_main-content">
+    <section class="frequently-asked-questions">
+        <h2 class="frequently-asked-questions__title text_montserrat text_color_dark-grey">Өзекті сұрақтар</h2>
+
+        <div class="frequently-asked-questions__box"></div>
+    </section>
+</main>
+{% endblock %}
