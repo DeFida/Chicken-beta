@@ -45,20 +45,3 @@ class RegisterForm(FlaskForm):
         user = session.query(users.User).filter_by(email=email.data).first()
         if user:
             raise ValidationError('That email is taken. Please choose a different one.')
-
-class PublishServicePost(FlaskForm):
-    title_of_post = StringField('Title', validators=[DataRequired()])
-    content = StringField('Content', validators=[DataRequired()])
-    submit = SubmitField('Publish')
-
-
-class AddServices(FlaskForm):
-    name = StringField('Название сервиса', validators=[DataRequired()])
-    address = TextAreaField("Адрес", validators=[DataRequired()])
-    phone_number = IntegerField("Телефонный номер", validators=[DataRequired()])
-    submit = SubmitField('Отправить заявку')
-    service = SelectField('service', choices=[('res', 'Рестораны'), ('cloth', 'Магазин одежды'),
-                            ('foodShops', 'Продуктовые магазины'), ('tire', 'Шиномонтаж'),
-                            ('vehicle_repairs', 'Станция технического обслуживания')])
-                            
-    search = StringField("Поиск")

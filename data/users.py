@@ -16,7 +16,8 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     created_date = sqlalchemy.Column(sqlalchemy.DateTime, 
                                      default=datetime.datetime.now)
     admin = sqlalchemy.Column(sqlalchemy.Boolean, nullable=False, default=False)
-    serv = orm.relation("Services", back_populates='user')
+    rep = orm.relation("Replies", back_populates='user')
+    qst = orm.relation("Questions", back_populates='user')
 
     def __repr__(self):
         return self.name
