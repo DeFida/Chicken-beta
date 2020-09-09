@@ -53,10 +53,13 @@ def load_user(user_id):
     return session.query(User).get(user_id)
 
 
-@app.route("/questions/", methods=["GET"])
-def index():
-    return render_template("base.html", side_bar_title="Сұрақтарым")
+@app.route("/questions/", methods=["GET", "POST"])
+def questions():
+    return render_template("questions.html", side_bar_title="Сұрақтарым")
  
+@app.route("/", methods=["GET", "POST"])
+def index():
+    return render_template("index.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

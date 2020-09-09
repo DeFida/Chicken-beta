@@ -4,6 +4,23 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
 {% endblock %}
 
-{% block body %}
-    
+{% block main_info %}
+<main class="page flex-row">
+<section class="flex-column">
+    <section class="side-bar flex-column_align-items_center">
+        <div class="side-bar__heading flex-row">
+            <p class="side-bar__my-questions-paragraph text_montserrat">{{ side_bar_title}}</p>
+            <button class="button text_color_light button-submit text_montserrat">Сұрақ қою</button>
+        </div>
+        <hr style="height: .1px; width: 90%; text-align: left; margin: 10px auto 20px; border: 0; background-color: rgba(88, 88, 88, 0.301);">
+        <div class="side-bar__question-div flex-column">
+            {% block ownquestions %}
+
+            {% endblock %}        
+        </div>
+    </section>
+    <section class="main-bar">
+        
+    </section></section>
+</main>
 {% endblock %}

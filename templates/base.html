@@ -19,42 +19,26 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
     {% block head %} {% endblock %}
 </head>
-<body>
-    <header class="header">
-        <nav class="navbar">
+<body style="background-color: rgb(246, 248, 250);">
+    <nav class="navbar">
+        <div class="navbar_box-location">
             <div class="logo_link-box logo_place_navbar">
-                <a href="/" class="logo__link-text_text-decoration_none text_montserrat"><img src="../static/images/logoчикен.png" class="logo__img" alt="Логотип">Chicken</a>
+                <a href="/" class="logo__link-text_text-decoration_none navbar__link_mode text_montserrat"><img src="../static/images/logoчикен.png" class="logo__img" alt="Логотип">M e l o n</a>
             </div>
 
             <div class="navbar__user-block navbar__user-block_place_navbar">
                 <img src="../static/images/unknownperson.png" alt="Аватарка пользователя" class="navbar__user-block__img">
             </div>
-        </nav>
-    </header>
-    <main class="page flex-row">
-        <section class="flex-column">
-        <section class="side-bar flex-column_align-items_center">
-            <div class="side-bar__heading flex-row">
-<<<<<<< HEAD
-                <p class="side-bar__my-questions-paragraph text_montserrat">{{ side_bar_title}}</p>
-=======
-                <p class="side-bar__my-questions-paragraph text_montserrat">{{ side_bar_title }}</p>
->>>>>>> 19683ed15bbeb140428b02c127d428841ae15868
-                <button class="button text_color_light button-submit text_montserrat">Сұрақ қою</button>
+            <div class="navbar__links-box flex-row_align-center">
+                <a class="navbar__link navbar__link_mode text_montserrat" href="/questions">Сұрақтар</a>
+                <a class="navbar__link navbar__link_mode text_montserrat" href="#">Мақалалар</a>
             </div>
-            <hr style="height: .1px; width: 90%; text-align: left; margin: 10px auto 20px; border: 0; background-color: rgba(88, 88, 88, 0.301);">
-            <div class="side-bar__question-div flex-column">
-                {% block ownquestions %}
+        </div>
+    </nav>
+    <div class="page">
+        {% block main_info %}
 
-                {% endblock %}        
-            </div>
-        </section>
-        <section class="main-bar">
-            {% block body %}
-
-            {% endblock %}
-        </section>
-    </section>
-    </main>
+        {% endblock %}
+    </div>
 </body>
 </html>
