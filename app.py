@@ -47,7 +47,6 @@ admin.add_view(OurModelView(User, db_session.create_session()))
 admin.add_view(OurModelView(Questions, db_session.create_session()))
 admin.add_view(OurModelView(Replies, db_session.create_session()))
 
-
 @login_manager.user_loader
 def load_user(user_id):
     session = db_session.create_session()
