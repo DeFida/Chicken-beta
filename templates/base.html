@@ -12,26 +12,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Tynyshtyq Dastan">
     <meta name="author" content="Bekbol Bolatov">
+    {% block head %} {% endblock %}
+    <title>Melon</title>
     <link rel="icon" href="../static/images/logoчикен.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/normalize.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
-    {% block head %} {% endblock %}
 </head>
 <body style="background-color: rgb(246, 248, 250);">
     <nav class="navbar">
-        <div class="navbar_box-location">
-            <div class="logo_link-box logo_place_navbar">
-                <a href="/" class="logo__link-text_text-decoration_none navbar__link_mode text_montserrat"><img src="../static/images/logoчикен.png" class="logo__img" alt="Логотип">M e l o n</a>
-            </div>
+        <div class="logo_link-box logo_place_navbar">
+            <a href="/" class="logo__link-text_text-decoration_none navbar__link_mode text_montserrat"><img src="../static/images/logoчикен.png" class="logo__img" alt="Логотип">M e l o n</a>
+        </div>
 
-            <div class="navbar__user-block navbar__user-block_place_navbar">
-                <img src="../static/images/unknownperson.png" alt="Аватарка пользователя" class="navbar__user-block__img">
-            </div>
-            <div class="navbar__links-box flex-row_align-center">
-                <a class="navbar__link navbar__link_mode text_montserrat" href="/questions">Сұрақтар</a>
-                <a class="navbar__link navbar__link_mode text_montserrat" href="#">Мақалалар</a>
-            </div>
+        <div class="navbar__user-block navbar__user-block_place_navbar">
+            <img src="../static/images/unknownperson.png" alt="Аватарка пользователя" class="navbar__user-block__img">
+        </div>
+        <div class="navbar__links-box flex-row_align-center">
+            <a class="navbar__link navbar__link_mode text_montserrat" href="/questions">Сұрақтар</a>
+            <a class="navbar__link navbar__link_mode text_montserrat" href="#">Мақалалар</a>
         </div>
     </nav>
     <div class="page">

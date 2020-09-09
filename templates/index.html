@@ -4,11 +4,42 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
 {% endblock %}
 
+
+
 {% block main_info %}
 <header class="header_index-page">
     <h1 class="text_color_light header__title text_montserrat">Ғылым - теңіз,<br> білім - қайық</h1>
-    {% if not current_user.authenticated %}
-    {% block signin_or_signup %}{% endblock %}
+    {% if sign_type != 'n' %}
+        {% if sign_type == 'sign-in' %}
+            <div class="sign-in_box">
+                <h2 class="sign-in_title text_montserrat text_color_dark-grey">Аккаунтқа кіру</h2>
+                <hr style="height: .1px; width: 90%; text-align: left; margin: 5px auto 0; border: 0; background-color: rgba(88, 88, 88, 0.301);">
+                <div class="sign-in__content">
+                    <p class="sign-in_label text_montserrat text_color_dark-grey">Аты-жөні</p>
+                    <input type="text" class="input_text text_montserrat text_color_dark-grey">
+                    <p class="sign-in_label text_montserrat text_color_dark-grey">Құпия сөз</p>
+                    <input type="password" class="input_text text_montserrat text_color_dark-grey">
+                </div>
+                <button class="button_sign text_color_light button-submit text_montserrat">Кіру</button>
+                <p class="just_for_sign_up_label">Егер аккаунт болмаса →<a href="/sign-up" style="text-decoration: none; color: #2f80ed;"> тіркеліңіз. </a></p>
+            </div>
+        {% endif %}
+        {% if sign_type == 'sign-up' %}
+            <div class="sign-in_box">
+                <h2 class="sign-in_title text_montserrat text_color_dark-grey">Аккаунт тіркеу</h2>
+                <hr style="height: .1px; width: 90%; text-align: left; margin: 5px auto 0; border: 0; background-color: rgba(88, 88, 88, 0.301);">
+                <div class="sign-in__content">
+                    <p class="sign-in_label text_montserrat text_color_dark-grey">Аты-жөні</p>
+                    <input type="text" class="input_text text_montserrat text_color_dark-grey">
+                    <p class="sign-in_label text_montserrat text_color_dark-grey">Email</p>
+                    <input type="password" class="input_text text_montserrat text_color_dark-grey">
+                    <p class="sign-in_label text_montserrat text_color_dark-grey">Құпия сөз</p>
+                    <input type="password" class="input_text text_montserrat text_color_dark-grey">
+                </div>
+                <button class="button_sign text_color_light button-submit text_montserrat">Тіркелу</button>
+                <p class="just_for_sign_up_label">Егер аккаунт бар болса →<a href="/sign-in" style="text-decoration: none; color: #2f80ed;"> кіріңіз. </a></p>
+            </div>
+        {% endif %}
     {% endif %}
 </header>
 
@@ -16,7 +47,9 @@
     <section class="frequently-asked-questions">
         <h2 class="frequently-asked-questions__title text_montserrat text_color_dark-grey">Өзекті сұрақтар</h2>
 
-        <div class="frequently-asked-questions__box"></div>
+        <div class="frequently-asked-questions__box">
+            
+        </div>
     </section>
 </main>
 {% endblock %}

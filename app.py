@@ -51,10 +51,16 @@ def load_user(user_id):
     session = db_session.create_session()
     return session.query(User).get(user_id)
 
-
 @app.route("/", methods=["GET"])
-def index():
-    return render_template("index.html")
+def main():
+    if current_user.is_authenticated:
+        return redirect("/n/")
+    else:
+        return redirect("/sign-in/")
+
+@app.route("/<string:mode>/", methods=["GET"])
+def index(mode):
+    return render_template("index.html", sign_type=mode)
 
 
 @app.route("/questions/", methods=["GET"])
