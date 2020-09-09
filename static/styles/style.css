@@ -168,5 +168,5 @@ background: #1f1f1f;
 
 .main-bar {
     margin-left: 300px;
-    width: 100%;
+    max-width: 100%;
 }

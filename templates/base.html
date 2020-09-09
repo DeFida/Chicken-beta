@@ -15,19 +15,19 @@
     <title>Chicken</title>
     <link rel="icon" href="../images/logoчикен.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/normalize.css">
-    <link rel="stylesheet" href="../styles/style.css">
-    
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    {% block head %} {% endblock %}
 </head>
 <body>
     <header class="header">
         <nav class="navbar">
             <div class="logo_link-box logo_place_navbar">
-                <a href="/" class="logo__link-text_text-decoration_none text_montserrat"><img src="../images/logoчикен.png" class="logo__img" alt="Логотип">Chicken</a>
+                <a href="/" class="logo__link-text_text-decoration_none text_montserrat"><img src="../static/images/logoчикен.png" class="logo__img" alt="Логотип">Chicken</a>
             </div>
 
             <div class="navbar__user-block navbar__user-block_place_navbar">
-                <img src="../images/unknownperson.png" alt="Аватарка пользователя" class="navbar__user-block__img">
+                <img src="../static/images/unknownperson.png" alt="Аватарка пользователя" class="navbar__user-block__img">
             </div>
         </nav>
     </header>
@@ -40,7 +40,7 @@
             </div>
             <hr style="height: .1px; width: 90%; text-align: left; margin: 10px auto 20px; border: 0; background-color: rgba(88, 88, 88, 0.301);">
             <div class="side-bar__question-div flex-column">
-                {% ownquestions body %}
+                {% block ownquestions %}
 
                 {% endblock %}        
             </div>
