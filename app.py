@@ -10,9 +10,9 @@ from flask_login import LoginManager, logout_user, current_user, login_user, log
 from datetime import datetime, timedelta
 from markupsafe import escape
 from passlib.hash import sha256_crypt
-# from forms import RegisterForm, LoginForm, AddServices, PublishServicePost
-# from data import db_session
-# from data.users import User
+from forms import RegisterForm, LoginForm, AddServices, PublishServicePost
+from data import db_session
+from data.users import User
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 import os
@@ -33,18 +33,17 @@ service_ch = None
 
 
 # print(stripe.Customer.retrieve('sub_HcgoijxNFgxdBz'))
-class OurModelView(ModelView):
-    def is_accessible(self):
-        return current_user.is_authenticated
+# class OurModelView(ModelView):
+#     def is_accessible(self):
+#         return current_user.is_authenticated
 
-class OurAdminIndexView(AdminIndexView):
-    def is_accessible(self):
-        return current_user.admin
+# class OurAdminIndexView(AdminIndexView):
+#     def is_accessible(self):
+#         return current_user.admin
 
-admin = Admin(app, index_view=OurAdminIndexView(), name="Chicken")
+# admin = Admin(app, index_view=OurAdminIndexView(), name="Chicken")
 # admin.add_view(OurModelView(User, db_session.create_session()))
 # admin.add_view(OurModelView(Services, db_session.create_session()))
-
 
 
 @login_manager.user_loader
@@ -53,9 +52,9 @@ def load_user(user_id):
     return session.query(User).get(user_id)
 
 
-@app.route("/", methods=["GET"])
+@app.route("/questions", methods=["GET"])
 def index():
-    return render_template("index.html")
+    return render_template("questions.html", side_bar_title="Сұрақтарым")
 
 
 # @app.route("/hot/", methods=['GET', 'POST'])
@@ -101,10 +100,6 @@ def index():
 #     logout_user()
 #     return redirect("/")
 
-
-# @app.route("/about/")
-# def about():
-#     return render_template("about.html")
 
 
 # @app.route("/search", methods=['GET', 'POST'])
