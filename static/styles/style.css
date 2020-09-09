@@ -120,7 +120,7 @@ background: #1f1f1f;
     position: relative;
     display: flex;
     justify-content: space-between;
-    min-width: 1600px;
+    min-width: 1500px;
     align-items: center;
     height: auto;
 }
