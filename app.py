@@ -2,7 +2,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, abort
 from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
-import stripe
 from flask_wtf import FlaskForm
 from flask_sqlalchemy import SQLAlchemy
 from flask_caching import Cache
@@ -55,8 +54,16 @@ def load_user(user_id):
 
 @app.route("/questions/", methods=["GET"])
 def index():
-    return render_template("base.html", side_bar_title="Сұрақтарым")
- 
+    return render_template("questions.html", side_bar_title="Сұрақтарым")
+
+
+@app.route("/new_qa/", methods=["POST"])
+def add_qa():
+    return render_template("new_qa.html")
+
+@app.route("/signup/", methods=["POST"])
+def signup():
+    return render_template("signup.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

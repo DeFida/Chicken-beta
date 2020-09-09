@@ -12,7 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Tynyshtyq Dastan">
     <meta name="author" content="Bekbol Bolatov">
-    <title>Chicken</title>
     <link rel="icon" href="../static/images/logoчикен.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/normalize.css') }}">
@@ -34,19 +33,17 @@
     <main class="page flex-row">
         <section class="flex-column">
         <section class="side-bar flex-column_align-items_center">
-            <div class="side-bar__heading flex-row">
-<<<<<<< HEAD
-                <p class="side-bar__my-questions-paragraph text_montserrat">{{ side_bar_title}}</p>
-=======
-                <p class="side-bar__my-questions-paragraph text_montserrat">{{ side_bar_title }}</p>
->>>>>>> 19683ed15bbeb140428b02c127d428841ae15868
-                <button class="button text_color_light button-submit text_montserrat">Сұрақ қою</button>
-            </div>
+            <form action="{{ url_for('add_qa') }}" method="post">
+                <div class="side-bar__heading flex-row">
+                    <p class="side-bar__my-questions-paragraph text_montserrat">{{ side_bar_title}}</p>
+                    <button class="button text_color_light button-submit text_montserrat">Сұрақ қою</button>
+                </div>
+            </form>
             <hr style="height: .1px; width: 90%; text-align: left; margin: 10px auto 20px; border: 0; background-color: rgba(88, 88, 88, 0.301);">
             <div class="side-bar__question-div flex-column">
                 {% block ownquestions %}
 
-                {% endblock %}        
+                {% endblock %}      
             </div>
         </section>
         <section class="main-bar">
