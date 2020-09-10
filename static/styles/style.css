@@ -200,20 +200,6 @@
     border-radius: 50%;
 }
 
-.side-bar {
-    position: fixed;
-    top: 60px;
-    width: 300px;
-    height: 100%;
-    border-right: 1px solid #dddddd;
-    background-color: #292929;
-}
-
-.side-bar__my-questions-paragraph {
-    font-size: 18px;
-    margin: 0;
-}
-
 .text_color_light {
     color: rgb(245,255,255);
 }
@@ -226,81 +212,38 @@
     background-color: #5CB85C;
 }
 
-
-.side-bar__heading {
-    width: 100%;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    border-bottom: 1px solid #88888888;
-}
-
-.side-bar__question-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px 0 0;
-    min-width: 100%;
-    max-width: 100%;
+.side-bar {
+    position: fixed;
+    top: 60px;
+    width: 235px;
     height: 100%;
-    border-top: 1px solid #88888888;
-    border-bottom: 1px solid #88888888;
-    overflow-y: scroll;
+    border-top: 1px solid #86868685;
+    background-color: #1f1f1f;
 }
 
-.side-bar__question-div::-webkit-scrollbar{
-    width: 5px;
-}
-
-.side-bar__question-box {
+.side-bar__category-box {
     width: 90%;
-    min-height: 50px;
-    max-height: 50px;
-    border-bottom: 1px solid #424242;
-    border-top: 1px solid #424242;
-    border-bottom-width: thin;
-    margin-top: 10px;
+    min-height: 40px;
+    margin-top: 30px;
     border-radius: 15px;
-}
-
-.back-question-box {
-    background-color: rgba(87, 87, 87, 0.2);
-}
-
-.back-question-box:hover {
-    background-color: rgba(87, 87, 87, 0.5);
-}
-
-.side-bar__question-info {
-    width: 90%;
-    height: 100%;
+    font-size: 16px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
 }
 
-.side-bar__question-info_title {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-height: 70%;
-    min-height: 70%;
-    margin: 0;
-    text-align: center;
-    font-size: 14px;
-    border-left: 1px solid #42424248;
+.side-bar__category-box-link {
     text-decoration: none;
-    
+    margin: 0 0 0 20px;
 }
 
-.side-bar__question_avatar-img {
-    margin: 0 10px;
-    width: auto;
-    height: 40px;
-    border-radius: 50%;
+.back-question-box {
+    background-color: 0;
+}
+
+.back-question-box:hover {
+    font-size: 18px;
+    background-color: rgba(87, 87, 87, 0.5);
 }
 
 .main-bar {
