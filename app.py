@@ -46,6 +46,22 @@ admin.add_view(OurModelView(User, db_session.create_session()))
 admin.add_view(OurModelView(Questions, db_session.create_session()))
 admin.add_view(OurModelView(Replies, db_session.create_session()))
 
+
+def mkdir(dir_img, ):
+    parent_dir = r"static\img\{}".format(dir_img)
+    directory = str(session.query(Services).filter(Services.address == service_ch.address).first().id)
+    path = os.path.join(parent_dir, directory)
+
+    try:
+        os.mkdir(path)
+    except FileExistsError:
+        pass
+
+    if request.files:
+        img = request.files["file"]
+        img.save(os.path.join(path, img.filename))
+
+
 @login_manager.user_loader
 def load_user(user_id):
     session = db_session.create_session()
