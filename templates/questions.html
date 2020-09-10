@@ -7,17 +7,73 @@
 <section class="flex-column">
     <section class="side-bar flex-column_align-items_center">
         <div class="side-bar__heading flex-row">
-            <p class="side-bar__my-questions-paragraph text_montserrat">{{ side_bar_title}}</p>
+            <p class="side-bar__my-questions-paragraph text_color_light text_montserrat">{{ side_bar_title}}</p>
             <button class="button text_color_light button-submit text_montserrat">Сұрақ қою</button>
         </div>
-        <hr style="height: .1px; width: 90%; text-align: left; margin: 10px auto 20px; border: 0; background-color: rgba(88, 88, 88, 0.301);">
-        <div class="side-bar__question-div flex-column">
-            {% block ownquestions %}
-
-            {% endblock %}        
+        <div style="width: 100%; display: flex; align-items: center; justify-content: center;">
+            <input type="text" class="search text_color_light text_montserrat" placeholder="Іздеу">
         </div>
+            <div class="side-bar__question-div flex-column">
+                {% for i in range(12) %}
+                    <div class="side-bar__question-box flex-row_align-center-none-just back-question-box">
+                        <img src="../static/images/unknownperson.png" alt="Аватарка пользователя" class="side-bar__question_avatar-img">
+                        <div class="side-bar__question-info">
+                            <a class="side-bar__question-info_title text_color_light text_montserrat" href="/">Екі қосу екі нешеге тең және оны ывпывпварв ...</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
     </section>
     <section class="main-bar">
-        
+        <div class="top-lookfor-questions_box">
+            <div class="main-bar__question-box flex-row_align-center-none-just">
+                <img src="../static/images/unknownperson.png" alt="Аватарка пользователя" class="main-bar__question_avatar-img">
+                <div class="main-bar__question-info">
+                    <a class="text_color_dark-grey main-bar__question-info_title  text_montserrat" href="/">Екі қосу екі нешеге тең және оны ывпывпварв ...</a>
+                </div>
+            </div>
+            <div class="main-bar__question-box flex-row_align-center-none-just">
+                <img src="../static/images/unknownperson.png" alt="Аватарка пользователя" class="main-bar__question_avatar-img">
+                <div class="main-bar__question-info">
+                    <a class="text_color_dark-grey main-bar__question-info_title  text_montserrat" href="/">Екі қосу екі нешеге тең және оны ывпывпварв ...</a>
+                </div>
+            </div>
+            <div class="main-bar__question-box flex-row_align-center-none-just">
+                <img src="../static/images/unknownperson.png" alt="Аватарка пользователя" class="main-bar__question_avatar-img">
+                <div class="main-bar__question-info">
+                    <a class="text_color_dark-grey main-bar__question-info_title  text_montserrat" href="/">Екі қосу екі нешеге тең және оны ывпывпварв ...</a>
+                </div>
+            </div>
+            <div class="main-bar__question-box flex-row_align-center-none-just">
+                <img src="../static/images/unknownperson.png" alt="Аватарка пользователя" class="main-bar__question_avatar-img">
+                <div class="main-bar__question-info">
+                    <a class="text_color_dark-grey main-bar__question-info_title  text_montserrat" href="/">Екі қосу екі нешеге тең және оны ывпывпварв ...</a>
+                </div>
+            </div>
+            <div class="main-bar__question-box flex-row_align-center-none-just">
+                <img src="../static/images/unknownperson.png" alt="Аватарка пользователя" class="main-bar__question_avatar-img">
+                <div class="main-bar__question-info">
+                    <a class="text_color_dark-grey main-bar__question-info_title  text_montserrat" href="/">Екі қосу екі нешеге тең және оны ывпывпварв ...</a>
+                </div>
+            </div>
+            <div class="main-bar__question-box flex-row_align-center-none-just">
+                <img src="../static/images/unknownperson.png" alt="Аватарка пользователя" class="main-bar__question_avatar-img">
+                <div class="main-bar__question-info">
+                    <a class="text_color_dark-grey main-bar__question-info_title  text_montserrat" href="/">Екі қосу екі нешеге тең және оны ывпывпварв ...</a>
+                </div>
+            </div>
+            <div class="main-bar__question-box flex-row_align-center-none-just">
+                <img src="../static/images/unknownperson.png" alt="Аватарка пользователя" class="main-bar__question_avatar-img">
+                <div class="main-bar__question-info">
+                    <a class="text_color_dark-grey main-bar__question-info_title  text_montserrat" href="/">Екі қосу екі нешеге тең және оны ывпывпварв ...</a>
+                </div>
+            </div>
+            <div class="main-bar__question-box flex-row_align-center-none-just">
+                <img src="../static/images/unknownperson.png" alt="Аватарка пользователя" class="main-bar__question_avatar-img">
+                <div class="main-bar__question-info">
+                    <a class="text_color_dark-grey main-bar__question-info_title  text_montserrat" href="/">Екі қосу екі нешеге тең және оны ывпывпварв ...</a>
+                </div>
+            </div>
+        </div>
     </section></section>
 {% endblock %}
