@@ -112,7 +112,7 @@ def login():
             username_err = "Есімнің дұрыстығына көз жеткізіңіз"
             flash(username_err)
             return render_template('index.html', sign_type="sign-in", username_err=username_err)
-        elif user and not check_password_hash(user.password, password):
+        if user and not check_password_hash(user.password, password):
             password_err = "Құпиясөз қате"
             flash(password_err)
             return render_template('index.html', sign_type="sign-in", password_err=password_err)
