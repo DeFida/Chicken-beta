@@ -51,16 +51,75 @@ def load_user(user_id):
     session = db_session.create_session()
     return session.query(User).get(user_id)
 
-@app.route("/", methods=["GET"])
-def main():
-    if current_user.is_authenticated:
-        return redirect("/n/")
-    else:
-        return redirect("/sign-in/")
 
-@app.route("/<string:mode>/", methods=["GET"])
+@app.route("/logout/")
+def logout():
+    logout_user()
+    return redirect("/")
+
+
+@app.route("/", methods=["GET", "POST"])
+def main():
+    if request.method == "POST":
+        print(request.form['username'])
+        username = request.form['username'].lower()
+        email = request.form['email'].lower()
+        password = request.form['password']
+        session = db_session.create_session()
+        username_err = str()
+        if session.query(User).filter(User.username == username).first():
+            username_err = "Бұл есім бос емес"
+            flash(username_err)
+            return render_template("index.html", username_err=username_err, sign_type="sign-up")
+        if session.query(User).filter(User.email == email).first():
+            email_err = "Бұл e-mail тіркелген"
+            return render_template("index.html", email_err=email_err, sign_type="sign-up")
+        user = User(
+            email=email,
+            username=username,
+            password=generate_password_hash(password)
+        )
+        session.add(user)
+        session.commit()
+        flash('You were successfully logged in')
+        return redirect('/sign-in/')
+    if current_user.is_authenticated:
+        return redirect("/home/")
+    return redirect("/sign-in/")
+
+@app.route("/<string:mode>/", methods=["GET", "POST"])
 def index(mode):
-    return render_template("index.html", sign_type=mode)
+    print(mode)
+    mode_list = ['sign-in', 'sign-up', 'home']
+    if mode == "home" and not current_user.is_authenticated:
+        return redirect("/sign-in/")
+    if mode in mode_list:
+        return render_template("index.html", sign_type=mode)
+    return '404'
+
+
+@app.route("/login/", methods=["POST", "GET"])
+def login():
+    if request.method == "POST":
+        username_err = str()
+        password_err = str()
+        session = db_session.create_session()
+        username = request.form['username'].lower()
+        password = request.form['password']
+        user = session.query(User).filter(User.username == username).first()
+        print(user)
+        if user == None:
+            username_err = "Есімнің дұрыстығына көз жеткізіңіз"
+            flash(username_err)
+            return render_template('index.html', sign_type="sign-in", username_err=username_err)
+        elif user and not check_password_hash(user.password, password):
+            password_err = "Құпиясөз қате"
+            flash(password_err)
+            return render_template('index.html', sign_type="sign-in", password_err=password_err)
+        if user and check_password_hash(user.password, password):
+            print("username - " + user.username)
+            login_user(user, remember=True)
+            return redirect(url_for('main'))
 
 
 @app.route("/questions/", methods=["GET"])

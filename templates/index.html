@@ -9,36 +9,49 @@
 {% block main_info %}
 <header class="header_index-page">
     <h1 class="text_color_light header__title text_montserrat">Ғылым - теңіз,<br> білім - қайық</h1>
-    {% if sign_type != 'n' %}
+    {% if not current_user.is_authenticated %}
         {% if sign_type == 'sign-in' %}
-            <div class="sign-in_box">
+            <form action="{{ url_for('login') }}" method="POST" class="sign-in_box">
                 <h2 class="sign-in_title text_montserrat text_color_dark-grey">Аккаунтқа кіру</h2>
                 <hr style="height: .1px; width: 90%; text-align: left; margin: 5px auto 0; border: 0; background-color: rgba(88, 88, 88, 0.301);">
                 <div class="sign-in__content">
                     <p class="sign-in_label text_montserrat text_color_dark-grey">Аты-жөні</p>
-                    <input type="text" class="input_text text_montserrat text_color_dark-grey">
+                    <input name="username" type="text" class="input_text text_montserrat text_color_dark-grey" value="{{ request.form['username'] }}">
+                    {% if username_err %}
+                        <p class="sign-in_label text_montserrat" style="color: red;">{{ username_err }}</p>
+                    {% endif %}
                     <p class="sign-in_label text_montserrat text_color_dark-grey">Құпия сөз</p>
-                    <input type="password" class="input_text text_montserrat text_color_dark-grey">
+                    <input name="password" type="password" class="input_text text_montserrat text_color_dark-grey">
+                    {% if password_err %}
+                        <p class="sign-in_label text_montserrat" style="color: red;">{{ password_err }}</p>
+                    {% endif %}
                 </div>
-                <button class="button_sign text_color_light button-submit text_montserrat">Кіру</button>
+                <button class="button_sign text_color_light button-submit text_montserrat" type="submit">Кіру</button>
                 <p class="just_for_sign_up_label">Егер аккаунт болмаса →<a href="/sign-up" style="text-decoration: none; color: #2f80ed;"> тіркеліңіз. </a></p>
-            </div>
+            </form>
         {% endif %}
         {% if sign_type == 'sign-up' %}
-            <div class="sign-in_box">
+            <form action="{{ url_for('main') }}" method="post" class="sign-in_box">
                 <h2 class="sign-in_title text_montserrat text_color_dark-grey">Аккаунт тіркеу</h2>
                 <hr style="height: .1px; width: 90%; text-align: left; margin: 5px auto 0; border: 0; background-color: rgba(88, 88, 88, 0.301);">
                 <div class="sign-in__content">
                     <p class="sign-in_label text_montserrat text_color_dark-grey">Аты-жөні</p>
-                    <input type="text" class="input_text text_montserrat text_color_dark-grey">
+                    <input name="username" type="text" class="input_text text_montserrat text_color_dark-grey" value="{{ request.form['username'] }}" required>
+                    {% if username_err %}
+                        <p class="sign-in_label text_montserrat" style="color: red;">{{ username_err }}</p>
+                    {% endif %}
                     <p class="sign-in_label text_montserrat text_color_dark-grey">Email</p>
-                    <input type="password" class="input_text text_montserrat text_color_dark-grey">
+                    <input name="email" type="email" class="input_text text_montserrat text_color_dark-grey" value="{{ request.form['email'] }}" required>
+                    {% if email_err %}
+                        <p class="sign-in_label text_montserrat" style="color: red;">{{ email_err }}</p>
+                    {% endif %}
                     <p class="sign-in_label text_montserrat text_color_dark-grey">Құпия сөз</p>
-                    <input type="password" class="input_text text_montserrat text_color_dark-grey">
+                    <input name="password" type="password" class="input_text text_montserrat text_color_dark-grey" required>
                 </div>
-                <button class="button_sign text_color_light button-submit text_montserrat">Тіркелу</button>
+                <button class="button_sign text_color_light button-submit text_montserrat" type="submit">Тіркелу</button>
                 <p class="just_for_sign_up_label">Егер аккаунт бар болса →<a href="/sign-in" style="text-decoration: none; color: #2f80ed;"> кіріңіз. </a></p>
-            </div>
+            </form>
+            
         {% endif %}
     {% endif %}
 </header>

@@ -9,7 +9,6 @@ from sqlalchemy_serializer import SerializerMixin
 class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'users'
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, nullable=False)
-    name = sqlalchemy.Column(sqlalchemy.String(50), nullable=False, unique=False)
     email = sqlalchemy.Column(sqlalchemy.String(255), nullable=False, unique=True)
     username = sqlalchemy.Column(sqlalchemy.String(50), nullable=False, unique=True)
     password = sqlalchemy.Column(sqlalchemy.String(255), nullable=False)
@@ -20,6 +19,6 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     qst = orm.relation("Questions", back_populates='user')
 
     def __repr__(self):
-        return self.name
+        return self.username
 
         
