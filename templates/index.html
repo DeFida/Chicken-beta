@@ -21,7 +21,7 @@
                         <p class="sign-in_label text_montserrat" style="color: red;">{{ username_err }}</p>
                     {% endif %}
                     <p class="sign-in_label text_montserrat text_color_dark-grey">Құпия сөз</p>
-                    <input name="password" type="password" class="input_text text_montserrat text_color_dark-grey">
+                    <input name="password" type="password" class="input_text text_montserrat text_color_dark-grey" required>
                     {% if password_err %}
                         <p class="sign-in_label text_montserrat" style="color: red;">{{ password_err }}</p>
                     {% endif %}
@@ -54,6 +54,7 @@
             
         {% endif %}
     {% endif %}
+    <img src="../static/images/header_boy.svg" class="header_boy-img" alt="boy on header">
 </header>
 
 <main class="index_main-content">
