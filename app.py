@@ -6,6 +6,7 @@ from flask_wtf import FlaskForm
 from flask_sqlalchemy import SQLAlchemy
 from flask_caching import Cache
 from flask_login import LoginManager, logout_user, current_user, login_user, login_required
+from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta
 from string import ascii_lowercase, digits
 from passlib.hash import sha256_crypt
@@ -54,30 +55,36 @@ def id_generator(model):
     print('id_generator was called')
     generated_id = str()
     session = db_session.create_session()
+    if model == "User":
+        var1 = session.query(User).filter(User.generated_id == generated_id).first()
+    if model == "Questions":
+        var1 = session.query(Questions).filter(Questions.generated_id == generated_id).first()
     for i in range(8):
         generated_id += choice(generator_ch)
-    while session.query(model).filter(model.generated_id == generated_id).first() != None:
+    while var1  != None:
         for i in range(8):
             generated_id += choice(generator_ch)
     return generated_id
 
 # 'users', User, username, 'username'
 def mkdir(dir_img, generated_id):
-    print('mkdir was called')
     parent_dir = r"static\images\{}".format(dir_img)
-    print(parent_dir, dir_img, generated_id)
     directory = str(generated_id)
     path = os.path.join(parent_dir, directory)
 
     try:
         os.mkdir(path)
+        print("folder created - " + path)
         return path
     except FileExistsError:
         pass
 
-    # if request.files:
-    #     img = request.files["file"]
-    #     img.save(os.path.join(path, img.filename))
+
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @login_manager.user_loader
@@ -108,7 +115,7 @@ def main():
         if session.query(User).filter(User.email == email).first():
             email_err = "Бұл e-mail тіркелген"
             return render_template("index.html", email_err=email_err, sign_type="sign-up")
-        generated_id=id_generator(User)
+        generated_id=id_generator("User")
         user = User(
             email=email,
             username=username,
@@ -168,12 +175,28 @@ def categories():
 @app.route("/new_qa/", methods=["POST"])
 @login_required
 def new_qa():
-    question__itle = request.form['question__title']
+    question__title = request.form['question__title']
     question__main_text = request.form['question__main-text']
-    generated_id = id_generator(Questions)
+    generated_id = id_generator("Questions")
+    session = db_session.create_session()
+    q = Questions(
+        title=question__title,
+        content=question__main_text,
+        generated_id=generated_id,
+        user_id=current_user.id
+    )
+    session.add(q)
+    session.commit()
+    print(question__title, question__main_text, generated_id)
+    path = mkdir("questions", generated_id)
     if request.files:
-        img = request.files["file"]
-        img.save(os.path.join(mkdir("questions", generated_id), os.rename(img.filename,"tutorialsdirectory")))
+        print(1)
+        files = request.files.getlist('files[]')
+        for file_ in files:
+            if file_ and allowed_file(file_.filename):
+                filename = secure_filename(file_.filename)
+                file_.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
     return render_template("new_qa.html")
 
 @app.route("/signup/", methods=["POST"])

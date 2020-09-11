@@ -34,7 +34,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    height: 100vh;
+    height: 92vh;
     min-height: 600px;
     max-height: 756px;
     /* выше установили ограничения для секции */
