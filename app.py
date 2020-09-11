@@ -122,9 +122,9 @@ def login():
             return redirect(url_for('main'))
 
 
-@app.route("/questions/", methods=["GET"])
-def questions():
-    return render_template("questions.html", side_bar_title="Сұрақтарым")
+@app.route("/categories/", methods=["GET"])
+def categories():
+    return render_template("categories.html")
 
 
 @app.route("/new_qa/", methods=["POST"])
