@@ -31,10 +31,10 @@
     </section>
     <section class="main-bar">
         <div class="top-lookfor-questions_box">
-            <form action="">
-                <input type="text"  id="question-title" name="question-title">
-                <textarea type="text"></textarea>
-                <input type="file"  id="file" name="file">
+            <form action="{{ url_for('new_qa') }}" method="POST">
+                <input type="text"  id="question-title" name="question__title" required>
+                <textarea type="text" name="question__main-text" required></textarea>
+                <input type="file"  id="file" name="file" multiple>
                 <button type="submit">Добавить</button>
             </form>
         </div>

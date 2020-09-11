@@ -14,7 +14,7 @@ class Questions(SqlAlchemyBase):
                                 sqlalchemy.ForeignKey("users.id"))
     reply = sqlalchemy.Column(sqlalchemy.Integer, 
                                 sqlalchemy.ForeignKey("replies.id"))
-    name_img = sqlalchemy.Column(sqlalchemy.String(50), nullable=False, unique=False)
+    generated_id = sqlalchemy.Column(sqlalchemy.String(8), nullable=False, unique=True)
     tags = sqlalchemy.Column(sqlalchemy.String(30))
     user = orm.relation('User')
     def __str__(self):

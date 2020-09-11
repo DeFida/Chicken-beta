@@ -9,6 +9,7 @@ from sqlalchemy_serializer import SerializerMixin
 class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'users'
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, nullable=False)
+    generated_id = sqlalchemy.Column(sqlalchemy.String(8), unique=True)
     email = sqlalchemy.Column(sqlalchemy.String(255), nullable=False, unique=True)
     username = sqlalchemy.Column(sqlalchemy.String(35), nullable=False, unique=True)
     password = sqlalchemy.Column(sqlalchemy.String(255), nullable=False)

@@ -37,7 +37,7 @@
                 <div class="sign-in__content">
                     <p class="sign-in_label text_montserrat text_color_dark-grey">Аты-жөні</p>
                     <input name="username" id="username" type="text" class="input_text text_montserrat text_color_dark-grey" value="{{ request.form['username'] }}" required>
-                    <p style="align-self: flex-end; margin: 5px 0 0;" ><span id="username_len">0</span> / 35</p>
+                    <!-- <p style="align-self: flex-end; margin: 5px 0 0;" ><span id="username_len">0</span> / 35</p> -->
                     {% if username_err %}
                         <p class="sign-in_label text_montserrat" style="color: red;">{{ username_err }}</p>
                     {% endif %}
