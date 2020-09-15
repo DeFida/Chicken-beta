@@ -52,7 +52,6 @@ admin.add_view(OurModelView(Replies, db_session.create_session()))
 
 def id_generator(model):
     global generator_ch
-    print('id_generator was called')
     generated_id = str()
     session = db_session.create_session()
     if model == "User":
@@ -80,7 +79,7 @@ def mkdir(dir_img, generated_id):
         pass
 
 
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg' ,'jfif', 'bmp'])
 
 
 def allowed_file(filename):
@@ -125,7 +124,6 @@ def main():
         session.add(user)
         session.commit()
         mkdir('users', generated_id)
-        flash('You were successfully logged in')
         return redirect('/sign-in/')
     if current_user.is_authenticated:
         return redirect("/home/")
@@ -166,7 +164,7 @@ def login():
             return redirect(url_for('main'))
 
 
-@app.route("/categories/", methods=["GET"])
+@app.route("/questions/", methods=["GET"])
 def categories():
     return render_template("categories.html")
 
@@ -189,15 +187,20 @@ def new_qa():
     session.commit()
     print(question__title, question__main_text, generated_id)
     path = mkdir("questions", generated_id)
-    if request.files:
-        print(1)
-        files = request.files.getlist('files[]')
-        for file_ in files:
-            if file_ and allowed_file(file_.filename):
-                filename = secure_filename(file_.filename)
-                file_.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    print(path)
+    if 'files[]' not in request.files:
+        print(404)
+    files = request.files.getlist('files[]')
+    img_count = 0
+    for file_ in files:
+        extension = file_.filename.split('.')[-1]
+        if file_ and allowed_file(file_.filename):
+            filename = secure_filename(file_.filename)
+            file_.save(os.path.join(path, filename))
+            img_count += 1
+            os.rename(path + '\\' + filename, path + '\\' + str(img_count) + '.' + extension)
 
-    return render_template("new_qa.html")
+    return redirect('/categories')
 
 @app.route("/signup/", methods=["POST"])
 def signup():
