@@ -37,6 +37,7 @@
     </nav>
     <section class="main-bar">
         <div class="top-lookfor-questions_box">
+<<<<<<< HEAD
             <form action="{{ url_for('new_qa') }}" method="POST">
                 <input type="text" id="question__title" name="question__title">
                 <textarea type="text" id="question__main-text" name="question__main-text"></textarea>
@@ -49,4 +50,41 @@
         
     </section>
 </section>
+=======
+            <form action="{{ url_for('new_qa') }}" method="POST" enctype="multipart/form-data" class="add_question flex-column">
+                <p class="text_montserrat add_question__paragraph-main">Сұрақ</p>
+                <p class="text_montserrat add_question__paragraph">Нақты болыңыз және басқа адамға сұрақ қойғандай жазыңыз</p>
+                <input class="input_text add_question__input" type="text"  id="question-title" name="question__title" required>
+                <p class="text_montserrat add_question__paragraph-main">Толығырақ</p>
+                <p class="text_montserrat add_question__paragraph">Жауап берушіге барынша толығырақ ақпарат беруге тырысыңыз</p>
+                <textarea type="text" name="question__main-text" style="border-radius: 5px" required class="add_question__textarea input_text"></textarea>
+                <input type="file"  id="file" name="files[]" multiple="true" accept="image/*">
+                <button type="submit" id="add_form">Жариялау</button>
+            </form>
+        </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var
+            max_file_number = 3,
+            $form = $('form'), 
+            // Define your upload field class or id or tag.
+            $file_upload = $('#file', $form), 
+            // Define your submit class or id or tag.
+            $button = $('#add_form', $form); 
+
+        // Disable submit button on page ready.
+        $button.prop('disabled', 'disabled');
+        $file_upload.on('change', function () {
+        var number_of_images = $('#file')[0].files.length;
+        if (number_of_images > max_file_number) {
+            alert(`You can upload maximum ${max_file_number} files.`);
+            $(this).val('');
+            $button.prop('disabled', 'disabled');
+        } 
+        else {
+            $button.prop('disabled', false);
+        }
+  });
+    </script>
+>>>>>>> ce413d244748a6968ed1ecf90af25fe2377716ba
 {% endblock %}

@@ -52,7 +52,6 @@ admin.add_view(OurModelView(Replies, db_session.create_session()))
 
 def id_generator(model):
     global generator_ch
-    print('id_generator was called')
     generated_id = str()
     session = db_session.create_session()
     if model == "User":
@@ -80,7 +79,11 @@ def mkdir(dir_img, generated_id):
         pass
 
 
+<<<<<<< HEAD
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+=======
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg' ,'jfif', 'bmp'])
+>>>>>>> ce413d244748a6968ed1ecf90af25fe2377716ba
 
 
 def allowed_file(filename):
@@ -101,7 +104,38 @@ def logout():
 
 @app.route("/", methods=["GET", "POST"])
 def main():
+<<<<<<< HEAD
     return render_template("index.html", sign_type="sign_up")
+=======
+    if request.method == "POST":
+        print(request.form['username'])
+        username = request.form['username'].lower()
+        email = request.form['email'].lower()
+        password = request.form['password']
+        session = db_session.create_session()
+        username_err = str()
+        if session.query(User).filter(User.username == username).first():
+            username_err = "Бұл есім бос емес"
+            flash(username_err)
+            return render_template("index.html", username_err=username_err, sign_type="sign-up")
+        if session.query(User).filter(User.email == email).first():
+            email_err = "Бұл e-mail тіркелген"
+            return render_template("index.html", email_err=email_err, sign_type="sign-up")
+        generated_id=id_generator("User")
+        user = User(
+            email=email,
+            username=username,
+            password=generate_password_hash(password),
+            generated_id=generated_id
+        )
+        session.add(user)
+        session.commit()
+        mkdir('users', generated_id)
+        return redirect('/sign-in/')
+    if current_user.is_authenticated:
+        return redirect("/home/")
+    return redirect("/sign-in/")
+>>>>>>> ce413d244748a6968ed1ecf90af25fe2377716ba
 
 @app.route("/<string:mode>/", methods=["GET", "POST"])
 def index(mode):
@@ -158,7 +192,7 @@ def sign_in():
         return redirect(url_for('main'))
 
 
-@app.route("/categories/", methods=["GET"])
+@app.route("/questions/", methods=["GET"])
 def categories():
     return render_template("categories.html")
 
@@ -185,6 +219,7 @@ def new_qa():
     session.commit()
     print(question__title, question__main_text, generated_id)
     path = mkdir("questions", generated_id)
+<<<<<<< HEAD
     if request.files:
         print(1)
         files = request.files.getlist('files[]')
@@ -194,6 +229,22 @@ def new_qa():
                 file_.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
     return render_template("new_qa.html")
+=======
+    print(path)
+    if 'files[]' not in request.files:
+        print(404)
+    files = request.files.getlist('files[]')
+    img_count = 0
+    for file_ in files:
+        extension = file_.filename.split('.')[-1]
+        if file_ and allowed_file(file_.filename):
+            filename = secure_filename(file_.filename)
+            file_.save(os.path.join(path, filename))
+            img_count += 1
+            os.rename(path + '\\' + filename, path + '\\' + str(img_count) + '.' + extension)
+
+    return redirect('/categories')
+>>>>>>> ce413d244748a6968ed1ecf90af25fe2377716ba
 
 
 @app.route("/signup/", methods=["POST"])
