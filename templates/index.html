@@ -10,8 +10,10 @@
 <header class="header_index-page">
     <h1 class="text_color_light header__title text_montserrat">Ғылым - теңіз,<br> білім - қайық</h1>
     {% if not current_user.is_authenticated %}
-        {% if sign_type == 'sign-in' %}
-            <form action="{{ url_for('login') }}" method="POST" class="sign-in_box">
+    <p>{{ sign_type }}</p>
+        {% if sign_type == 'sign_in' %}
+        
+            <form action="{{ url_for('main') }}" method="POST" class="sign-in_box">
                 <h2 class="sign-in_title text_montserrat text_color_dark-grey">Аккаунтқа кіру</h2>
                 <hr style="height: .1px; width: 90%; text-align: left; margin: 5px auto 0; border: 0; background-color: rgba(88, 88, 88, 0.301);">
                 <div class="sign-in__content">
@@ -30,29 +32,29 @@
                 <p class="just_for_sign_up_label">Егер аккаунт болмаса →<a href="/sign-up" style="text-decoration: none; color: #2f80ed;"> тіркеліңіз. </a></p>
             </form>
         {% endif %}
-        {% if sign_type == 'sign-up' %}
-            <form action="{{ url_for('main') }}" method="post" class="sign-in_box">
+        {% if sign_type == 'sign_up' %}
+            <form action="{{ url_for('main') }}" method="POST" class="sign-in_box">
                 <h2 class="sign-in_title text_montserrat text_color_dark-grey">Аккаунт тіркеу</h2>
                 <hr style="height: .1px; width: 90%; text-align: left; margin: 5px auto 0; border: 0; background-color: rgba(88, 88, 88, 0.301);">
                 <div class="sign-in__content">
                     <p class="sign-in_label text_montserrat text_color_dark-grey">Аты-жөні</p>
-                    <input name="username" id="username" type="text" class="input_text text_montserrat text_color_dark-grey" value="{{ request.form['username'] }}" required>
+                    <input name="username" id="username" type="text" class="input_text text_montserrat text_color_dark-grey" required>
                     <!-- <p style="align-self: flex-end; margin: 5px 0 0;" ><span id="username_len">0</span> / 35</p> -->
-                    {% if username_err %}
-                        <p class="sign-in_label text_montserrat" style="color: red;">{{ username_err }}</p>
-                    {% endif %}
+                    
+                        <p class="sign-in_label text_montserrat" id="error_p_username" style="color: red;"></p>
+
                     <p class="sign-in_label text_montserrat text_color_dark-grey">Email</p>
-                    <input name="email" type="email" class="input_text text_montserrat text_color_dark-grey" value="{{ request.form['email'] }}" required>
-                    {% if email_err %}
-                        <p class="sign-in_label text_montserrat" style="color: red;">{{ email_err }}</p>
-                    {% endif %}
+                    <input name="email" type="email" class="input_text text_montserrat text_color_dark-grey" required>
+
+                        <p class="sign-in_label text_montserrat" style="color: red;" id="error_p_email"></p>
+                    
                     <p class="sign-in_label text_montserrat text_color_dark-grey">Құпия сөз</p>
                     <input name="password" type="password" class="input_text text_montserrat text_color_dark-grey" required>
                 </div>
-                <button class="button_sign text_color_light button-submit text_montserrat" type="submit">Тіркелу</button>
-                <p class="just_for_sign_up_label">Егер аккаунт бар болса →<a href="/sign-in" style="text-decoration: none; color: #2f80ed;"> кіріңіз. </a></p>
+                <button class="button_sign text_color_light button-submit text_montserrat"  id="sign_up_button" type="submit">Тіркелу</button>
+                <p class="just_for_sign_up_label">Егер аккаунт бар болса →<a href="/sign_in/" style="text-decoration: none; color: #2f80ed;"> кіріңіз. </a></p>
             </form>
-            
+
         {% endif %}
     {% endif %}
     <img src="../static/images/header_boy.svg" class="header_boy-img" alt="boy on header">
@@ -70,4 +72,52 @@
         </div>
     </section>
 </main>
+
+<footer class="profile-footer">
+    <div style="width: 100%; height: 100%; display: flex; flex-direction: row; justify-content: space-around;">
+        <div class="footer__logo">
+                <a href="/" class="logo__link-text_text-decoration_none navbar__link_mode text_montserrat"><img src="../static/images/logoчикен.png" class="logo__img" alt="Логотип">S A U A L</a>
+        </div>
+        <div class="footer__links">
+            <nav style="margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <p class="footer__social-title text_color_light text_montserrat">Соцсети</p>
+                <ol style="margin: 0; padding: 0; display: flex; flex-direction: row; justify-content: center;">
+                    <li class="footer__social-icon flex-row"><a href="https://t.me/nameuser3" target="_blank" class="footer_icon"><img src="../static/images/telegram_color_white.svg" alt="Телеграм"></a> <a href="https://t.me/nameuser3" class="text_montserrat text_color_light" style="text-decoration: none;">Телеграмм</a></li>
+                    <li class="footer__social-icon flex-row"><a href="https://www.instagram.com/jog_cats/" target="_blank" class="footer_icon"><img src="../static/images/instagram_color_white.svg" alt="Инстаграм"></a><a href="https://www.instagram.com/jog_cats/" class="text_montserrat text_color_light" style="text-decoration: none;">Инстаграм</a></li>
+                    <li class="footer__social-icon flex-row"><a href="https://vk.com/public198627056" target="_blank" class="footer_icon"><img src="../static/images/vk_color_white.svg" alt="Вконтакте"></a><a href="https://vk.com/public198627056" class="text_montserrat text_color_light" style="text-decoration: none;">Вконтакте</a></li>
+                </ol>
+            </nav>
+        </div>
+        <div class="footer__jog-cats">
+            <p style="color: rgb(79, 79, 79); font-weight: normal; font-size: 20px;">&copy; 2020. Jog Cats, NGO</p>
+    </div>
+    </div>
+</footer>
+
+<script>
+
+ $(function() {
+    $('button#sign_up_button').bind('click', function() {
+    $.getJSON('/sign_up/', {
+        username: $('input[name="username"]').val(),
+        email: $('input[name="email"]').val(),
+        password: $('input[name="password"]').val()
+    }, function(data) {
+        if (data.error == "Сіз жазған логин тіркелген") {
+            $("#error_p_username").text(data.error);
+            $("#error_p_password").hide();
+        }
+        else if (data.error == "Бұл e-mail тіркелген") {
+            $("#error_p_username").hide();
+            $("#error_p_email").text(data.error);
+        }
+        else if (data.error == undefined){
+            $("#error_p_username").hide();
+            $("#error_p_password").hide();
+        }
+    });
+    return false;
+    });
+});
+</script>
 {% endblock %}

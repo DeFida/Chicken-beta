@@ -1,10 +1,12 @@
-<!-- bismillah -->
 <!DOCTYPE html>
 <html lang="kz">
 <html lang="ru">
 <html lang="en">
 <head>
-    
+    <script type=text/javascript src="{{
+        url_for('static', filename='js/script.js') }}"></script>
+    <script type=text/javascript src="{{
+        url_for('static', filename='js/jQuery.js') }}"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,11 +24,21 @@
 <body style="background-color: rgb(246, 248, 250);">
     <nav class="navbar">
         <div class="logo_link-box logo_place_navbar">
-            <a href="/" class="logo__link-text_text-decoration_none navbar__link_mode text_montserrat"><img src="../static/images/logoчикен.png" class="logo__img" alt="Логотип">M e l o n</a>
+            <a href="/" class="logo__link-text_text-decoration_none navbar__link_mode text_montserrat"><img src="../static/images/logoчикен.png" class="logo__img" alt="Логотип">S A U A L</a>
         </div>
 
         <div class="navbar__user-block navbar__user-block_place_navbar">
-            <img src="../static/images/unknownperson.png" alt="Аватарка пользователя" class="navbar__user-block__img">
+            <p class="navbar__username text_color_light text_montserrat">{{ current_user.username }}</p>
+            <img onclick="show_navbar__user_options()" id="navbar__user-block__img" src="../static/images/test_avatar.jpg" alt="Аватарка пользователя" class="navbar__user-block__img">
+            {% if current_user.is_authenticated %}
+            <div id="navbar__user-options" class="navbar__user-options">
+                <a href="/user_profile/" class="navbar__option-link text_montserrat text_color_dark-grey">Профиль</a>
+                <a href="/settings" class="navbar__option-link text_montserrat text_color_dark-grey">Баптаулар</a>
+                <a href="/settings" class="navbar__option-link text_montserrat text_color_dark-grey">Тех. қолдау</a>
+                <hr style="height: .1px; width: 90%; border: 0; margin: 0; background-color: rgba(88, 88, 88, 0.404);">
+                <a href="/logout" class="navbar__option-link text_montserrat text_color_dark-grey">Шығу</a>
+            </div>
+            {% endif %}
         </div>
         <div class="main-search_box">
             <input type="text" class="main-search_input text_color_dark-grey text_montserrat" placeholder="Іздеу">
@@ -36,8 +48,9 @@
         {% block main_info %}
 
         {% endblock %}
-        <script type=text/javascript src="{{
-            url_for('static', filename='js/script.js') }}"></script>
+        
     </div>
+
+    
 </body>
 </html>

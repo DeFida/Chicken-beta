@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block main_info %}
+<header style="display: flex; justify-content: center;">
+    <div class="header__banner">
+        <div class="header__user-avatar_place">
+            <img src="../static/images/test_avatar.jpg" alt="user-avatar" class="header__user-avatar">
+        </div>
+        <p class="header__user-name text-montserrat text_color_dark-grey">
+            dasik
+            <img src="../static/images/edit.svg" alt="edit" style="width: 20px; height: 20px; margin-left: 10px; position: absolute; right: -30px;">
+        </p>
+        </div>
+        
+</header>
+<section class="profile-section">
+    <div class="profile-section__user-information">
+        <div class="profile-section__information-headers">
+            <button name="profile-section__information-header" id="questions_header_button" class="profile-section__information-header text_montserrat text_color_dark-grey profile-section__information-header_action profile-section__information-header_clicked">Сұрақтарым</button>
+            <button name="profile-section__information-header" id="answers_header_button" class="profile-section__information-header text_montserrat text_color_dark-grey profile-section__information-header_action">Жауаптарым</button>
+            <button name="profile-section__information-header" id="articles_header_button" class="profile-section__information-header text_montserrat text_color_dark-grey profile-section__information-header_action">Мақалалар</button>
+            <button name="profile-section__information-header" id="subscribes_header_button" class="profile-section__information-header text_montserrat text_color_dark-grey profile-section__information-header_action">Жазылымдар</button>
+            <button name="profile-section__information-header" id="likes_header_button" class="profile-section__information-header text_montserrat text_color_dark-grey profile-section__information-header_action">Ұнағандар</button>
+        </div>
+        <hr style="height: .1px; width: 95%; text-align: center; border: 0; margin: 0; background-color: rgba(88, 88, 88, 0.5);">
+    <!-- question block  -->
+        <div class="profile__list" name="profile__blocks" id="questions_block">
+            {% for i in range(10) %}
+                <div class="profile-question-block">
+                    <h1>asdasd</h1>
+                </div>
+            {% endfor %}
+        </div>
+    <!-- question block  -->
+
+    <!-- answer block  -->
+        <div class="profile__list" name="profile__blocks" id="answers_block">
+            {% for i in range(3) %}
+                <div class="profile-answer-block">
+                    <h1>answers</h1>
+                </div>
+            {% endfor %}
+        </div>
+    <!-- answer block  -->
+
+    <!-- article block  -->
+        <div class="profile__list" name="profile__blocks" id="articles_block">
+            {% for i in range(2) %}
+                <div class="profile-article-block">
+                    <h1>articles</h1>
+                </div>
+            {% endfor %}
+        </div>
+    <!-- article block  -->
+
+    <!-- subscribe block  -->
+        <div class="profile__list" name="profile__blocks" id="subscribes_block">
+            {% for i in range(6) %}
+                <div class="profile-subscribe-block">
+                    <h1>subscribes</h1>
+                </div>
+            {% endfor %}
+        </div>
+    <!-- subscribe block  -->
+
+    <!-- like block  -->
+        <div class="profile__list" name="profile__blocks" id="likes_block">
+            {% for i in range(5) %}
+                <div class="profile-like-block">
+                    <h1>likes</h1>
+                </div>
+            {% endfor %}
+        </div>
+    <!-- like block  -->
+    </div>
+</section>
+<footer class="profile-footer">
+    <div style="width: 100%; height: 100%; display: flex; flex-direction: row; justify-content: space-around;">
+        <div class="footer__logo">
+                <a href="/" class="logo__link-text_text-decoration_none navbar__link_mode text_montserrat"><img src="../static/images/logoчикен.png" class="logo__img" alt="Логотип">S A U A L</a>
+        </div>
+        <div class="footer__links">
+            <nav style="margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <ol style="margin: 0; padding: 0; display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                    <li class="footer__social-icon flex-row"><a href="https://t.me/nameuser3" target="_blank" class="footer_icon"><img src="../static/images/telegram_color_white.svg" alt="Телеграм"></a> <a href="https://t.me/nameuser3" class="text_montserrat text_color_light" style="text-decoration: none;">Телеграмм</a></li>
+                    <li class="footer__social-icon flex-row"><a href="https://www.instagram.com/jog_cats/" target="_blank" class="footer_icon"><img src="../static/images/instagram_color_white.svg" alt="Инстаграм"></a><a href="https://www.instagram.com/jog_cats/" class="text_montserrat text_color_light" style="text-decoration: none;">Инстаграм</a></li>
+                    <li class="footer__social-icon flex-row"><a href="https://vk.com/public198627056" target="_blank" class="footer_icon"><img src="../static/images/vk_color_white.svg" alt="Вконтакте"></a><a href="https://vk.com/public198627056" class="text_montserrat text_color_light" style="text-decoration: none;">Вконтакте</a></li>
+                </ol>
+            </nav>
+        </div>
+        <div class="footer__jog-cats">
+            <p style="color: rgb(79, 79, 79); font-weight: normal; font-size: 20px;">&copy; 2020. Jog Cats, NGO</p>
+    </div>
+    </div>
+</footer>
+
+<script>
+    $(document).ready(function(){
+        var blocks = $('div[name = "profile__blocks"]');
+            var i;
+            for (i = 0; i < blocks.length; i++) {
+                $(blocks[i]).hide();
+            }
+        $('#questions_block').show();
+
+        $('#questions_header_button').click(function(){
+            
+            var blocks = $('div[name = "profile__blocks"]');
+            var i;
+            for (i = 0; i < blocks.length; i++) {
+                $(blocks[i]).hide();
+            }
+            $('#questions_block').show();
+            var headers = $('button[name = "profile-section__information-header"]');
+            var i;
+            for (i = 0; i < headers.length; i++) {
+                headers[i].classList.remove("profile-section__information-header_clicked");
+            }
+            console.log("button is clicked");
+            document.getElementById($(this).attr('id')).classList.toggle("profile-section__information-header_clicked");
+        });
+
+        $('#answers_header_button').click(function(){
+            
+            var blocks = $('div[name = "profile__blocks"]');
+            var i;
+            for (i = 0; i < blocks.length; i++) {
+                console.log(blocks[i]);
+                $(blocks[i]).hide();
+                
+            }
+            $('#answers_block').show();
+            var headers = $('button[name = "profile-section__information-header"]');
+            var i;
+            for (i = 0; i < headers.length; i++) {
+                headers[i].classList.remove("profile-section__information-header_clicked");
+            }
+            console.log("button is clicked");
+            document.getElementById($(this).attr('id')).classList.toggle("profile-section__information-header_clicked");
+        });
+        
+        $('#articles_header_button').click(function(){
+            var blocks = $('div[name = "profile__blocks"]');
+            var i;
+            for (i = 0; i < blocks.length; i++) {
+                $(blocks[i]).hide();
+            }
+            $('#articles_block').show();
+            var headers = $('button[name = "profile-section__information-header"]');
+            var i;
+            for (i = 0; i < headers.length; i++) {
+                headers[i].classList.remove("profile-section__information-header_clicked");
+            }
+            console.log("button is clicked");
+            document.getElementById($(this).attr('id')).classList.toggle("profile-section__information-header_clicked");
+        });
+
+        $('#subscribes_header_button').click(function(){
+            var blocks = $('div[name = "profile__blocks"]');
+            var i;
+            for (i = 0; i < blocks.length; i++) {
+                $(blocks[i]).hide();
+            }
+            $('#subscribes_block').show();
+            var headers = $('button[name = "profile-section__information-header"]');
+            var i;
+            for (i = 0; i < headers.length; i++) {
+                headers[i].classList.remove("profile-section__information-header_clicked");
+            }
+            console.log("button is clicked");
+            document.getElementById($(this).attr('id')).classList.toggle("profile-section__information-header_clicked");
+        });
+
+        $('#likes_header_button').click(function(){
+            var blocks = $('div[name = "profile__blocks"]');
+            var i;
+            for (i = 0; i < blocks.length; i++) {
+                $(blocks[i]).hide();
+            }
+            $('#likes_block').show();
+            var headers = $('button[name = "profile-section__information-header"]');
+            var i;
+            for (i = 0; i < headers.length; i++) {
+                
+                headers[i].classList.remove("profile-section__information-header_clicked");
+            }
+            console.log("button is clicked");
+            document.getElementById($(this).attr('id')).classList.toggle("profile-section__information-header_clicked");
+        });
+    });
+</script>
+{% endblock %}
