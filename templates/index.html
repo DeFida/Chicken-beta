@@ -10,56 +10,46 @@
 <header class="header_index-page">
     <h1 class="text_color_light header__title text_montserrat">Ғылым - теңіз,<br> білім - қайық</h1>
     {% if not current_user.is_authenticated %}
-    <p>{{ sign_type }}</p>
-        {% if sign_type == 'sign_in' %}
+        <form action="{{ url_for('main') }}" method="POST" class="sign-in_box" id="sign_in_form">
+            <h2 class="sign-in_title text_montserrat text_color_dark-grey">Аккаунтқа кіру</h2>
+            <hr style="height: .1px; width: 90%; text-align: left; margin: 5px auto 0; border: 0; background-color: rgba(88, 88, 88, 0.301);">
+            <div class="sign-in__content">
+                <p class="sign-in_label text_montserrat text_color_dark-grey">Аты-жөні ( Логин )</p>
+                <input name="username_in" type="text" class="input_text text_montserrat text_color_dark-grey"">
+                    <p class="sign-in_label text_montserrat" id="error_p_username_in" style="color: red;"></p>
+                <p class="sign-in_label text_montserrat text_color_dark-grey">Құпия сөз</p>
+                <input name="password_in" type="password" class="input_text text_montserrat text_color_dark-grey" required>
+                    <p class="sign-in_label text_montserrat" id="error_p_password_in" style="color: red;"></p>
+            </div>
+            <button class="button_sign text_color_light button-submit text_montserrat" id="sign_in_button" type="submit">Кіру</button>
+            <p class="just_for_sign_up_label">Егер аккаунт болмаса →<a onclick="in_hide()" style="cursor: pointer; text-decoration: none; color: #2f80ed;"> тіркеліңіз. </a></p>
+        </form>
         
-            <form action="{{ url_for('main') }}" method="POST" class="sign-in_box">
-                <h2 class="sign-in_title text_montserrat text_color_dark-grey">Аккаунтқа кіру</h2>
-                <hr style="height: .1px; width: 90%; text-align: left; margin: 5px auto 0; border: 0; background-color: rgba(88, 88, 88, 0.301);">
-                <div class="sign-in__content">
-                    <p class="sign-in_label text_montserrat text_color_dark-grey">Аты-жөні ( Логин )</p>
-                    <input name="username" type="text" class="input_text text_montserrat text_color_dark-grey" value="{{ request.form['username'] }}">
-                    {% if username_err %}
-                        <p class="sign-in_label text_montserrat" style="color: red;">{{ username_err }}</p>
-                    {% endif %}
-                    <p class="sign-in_label text_montserrat text_color_dark-grey">Құпия сөз</p>
-                    <input name="password" type="password" class="input_text text_montserrat text_color_dark-grey" required>
-                    {% if password_err %}
-                        <p class="sign-in_label text_montserrat" style="color: red;">{{ password_err }}</p>
-                    {% endif %}
-                </div>
-                <button class="button_sign text_color_light button-submit text_montserrat" type="submit">Кіру</button>
-                <p class="just_for_sign_up_label">Егер аккаунт болмаса →<a href="/sign-up" style="text-decoration: none; color: #2f80ed;"> тіркеліңіз. </a></p>
-            </form>
-        {% endif %}
-        {% if sign_type == 'sign_up' %}
-            <form action="{{ url_for('main') }}" method="POST" class="sign-in_box">
-                <h2 class="sign-in_title text_montserrat text_color_dark-grey">Аккаунт тіркеу</h2>
-                <hr style="height: .1px; width: 90%; text-align: left; margin: 5px auto 0; border: 0; background-color: rgba(88, 88, 88, 0.301);">
-                <div class="sign-in__content">
-                    <p class="sign-in_label text_montserrat text_color_dark-grey">Аты-жөні</p>
-                    <input name="username" id="username" type="text" class="input_text text_montserrat text_color_dark-grey" required>
-                    <!-- <p style="align-self: flex-end; margin: 5px 0 0;" ><span id="username_len">0</span> / 35</p> -->
-                    
-                        <p class="sign-in_label text_montserrat" id="error_p_username" style="color: red;"></p>
+        <form action="{{ url_for('main') }}" method="POST" class="sign-in_box" id="sign_up_form">
+            <h2 class="sign-in_title text_montserrat text_color_dark-grey">Аккаунт тіркеу</h2>
+            <hr style="height: .1px; width: 90%; text-align: left; margin: 5px auto 0; border: 0; background-color: rgba(88, 88, 88, 0.301);">
+            <div class="sign-in__content">
+                <p class="sign-in_label text_montserrat text_color_dark-grey">Аты-жөні</p>
+                <input name="username" id="username" type="text" class="input_text text_montserrat text_color_dark-grey" required>
+                <!-- <p style="align-self: flex-end; margin: 5px 0 0;" ><span id="username_len">0</span> / 35</p> -->
+                
+                    <p class="sign-in_label text_montserrat" id="error_p_username" style="color: red;"></p>
 
-                    <p class="sign-in_label text_montserrat text_color_dark-grey">Email</p>
-                    <input name="email" type="email" class="input_text text_montserrat text_color_dark-grey" required>
+                <p class="sign-in_label text_montserrat text_color_dark-grey">Email</p>
+                <input name="email" type="email" class="input_text text_montserrat text_color_dark-grey" required>
 
-                        <p class="sign-in_label text_montserrat" style="color: red;" id="error_p_email"></p>
-                    
-                    <p class="sign-in_label text_montserrat text_color_dark-grey">Құпия сөз</p>
-                    <input name="password" type="password" class="input_text text_montserrat text_color_dark-grey" required>
-                </div>
-                <button class="button_sign text_color_light button-submit text_montserrat"  id="sign_up_button" type="submit">Тіркелу</button>
-                <p class="just_for_sign_up_label">Егер аккаунт бар болса →<a href="/sign_in/" style="text-decoration: none; color: #2f80ed;"> кіріңіз. </a></p>
-            </form>
-
-        {% endif %}
+                    <p class="sign-in_label text_montserrat" style="color: red;" id="error_p_email"></p>
+                
+                <p class="sign-in_label text_montserrat text_color_dark-grey">Құпия сөз</p>
+                <input name="password" type="password" class="input_text text_montserrat text_color_dark-grey" required>
+            </div>
+            <button class="button_sign text_color_light button-submit text_montserrat"  id="sign_up_button" type="submit">Тіркелу</button>
+            <p class="just_for_sign_up_label">Егер аккаунт бар болса →<a onclick="up_hide()" style="cursor: pointer; text-decoration: none; color: #2f80ed;"> кіріңіз. </a></p>
+        </form>
     {% endif %}
-    <img src="../static/images/header_boy.svg" class="header_boy-img" alt="boy on header">
+    <img src="../static/images/header_boy.svg" class="header_boy-img" alt="boy on header" id='mainpage_boy'>
     <div class="main-page_buttons-box">
-        <a href="/categories" style="text-decoration: none;"><div class="main-page_button text_color_light text_montserrat main-page_button_background" style="display: flex; align-items: center;">Алға &#129046;</div></a>
+        <a href="/questions" style="text-decoration: none;"><div class="main-page_button text_color_light text_montserrat main-page_button_background" style="display: flex; align-items: center;">Алға &#129046;</div></a>
     </div>
 </header>
 
@@ -95,9 +85,56 @@
 </footer>
 
 <script>
+    if (window.sessionStorage.getItem('animated') === null) { 
+        console.log("Asdasd");
+    document.getElementById('mainpage_boy').classList.add('animated');
+    window.sessionStorage.setItem('animated' ,1);
+} 
 
- $(function() {
-    $('button#sign_up_button').bind('click', function() {
+</script>
+
+<script>
+
+up_hide();
+console.log('up is hid');
+
+function in_hide(){
+    $("#sign_in_form").hide();
+    $("#sign_up_form").show();
+};
+
+function up_hide(){
+    $("#sign_in_form").show();
+    $("#sign_up_form").hide();
+};
+
+$(function() {
+    $('button#sign_in_button').bind('click', function() {
+    $.getJSON('/sign_in/', {
+        username_in: $('input[name="username_in"]').val(),
+        password_in: $('input[name="password_in"]').val()
+    }, function(data) {
+        console.log(data.error);
+        if (data.error == "Есімнің дұрыстығына көз жеткізіңіз") {
+            
+            $("#error_p_username_in").text(data.error);
+            $("#error_p_password_in").hide();
+        }
+        else if (data.error == "Құпиясөз қате") {
+            $("#error_p_username_in").hide();
+            $("#error_p_password_in").text(data.error);
+        }
+        else if (data.error == "No error"){
+            $("#error_p_username_in").hide();
+            $("#error_p_password_in").hide();
+            location.reload(true);
+        }
+    });
+    return false;
+    });
+});
+
+$('button#sign_up_button').bind('click', function() {
     $.getJSON('/sign_up/', {
         username: $('input[name="username"]').val(),
         email: $('input[name="email"]').val(),
@@ -111,13 +148,13 @@
             $("#error_p_username").hide();
             $("#error_p_email").text(data.error);
         }
-        else if (data.error == undefined){
+        else if (data.error == "No error"){
             $("#error_p_username").hide();
             $("#error_p_password").hide();
+            up_hide();
         }
     });
     return false;
     });
-});
 </script>
 {% endblock %}

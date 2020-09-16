@@ -37,20 +37,6 @@
     </nav>
     <section class="main-bar">
         <div class="top-lookfor-questions_box">
-<<<<<<< HEAD
-            <form action="{{ url_for('new_qa') }}" method="POST">
-                <input type="text" id="question__title" name="question__title">
-                <textarea type="text" id="question__main-text" name="question__main-text"></textarea>
-                <input type="file"  id="file" name="file" multiple>
-                <button type="submit">Добавить</button>
-            </form>
-        </div>
-    </section>
-    <section class="side-bar-articles">
-        
-    </section>
-</section>
-=======
             <form action="{{ url_for('new_qa') }}" method="POST" enctype="multipart/form-data" class="add_question flex-column">
                 <p class="text_montserrat add_question__paragraph-main">Сұрақ</p>
                 <p class="text_montserrat add_question__paragraph">Нақты болыңыз және басқа адамға сұрақ қойғандай жазыңыз</p>
@@ -86,5 +72,4 @@
         }
   });
     </script>
->>>>>>> ce413d244748a6968ed1ecf90af25fe2377716ba
 {% endblock %}

@@ -32,11 +32,11 @@
             <img onclick="show_navbar__user_options()" id="navbar__user-block__img" src="../static/images/test_avatar.jpg" alt="Аватарка пользователя" class="navbar__user-block__img">
             {% if current_user.is_authenticated %}
             <div id="navbar__user-options" class="navbar__user-options">
-                <a href="/user_profile/" class="navbar__option-link text_montserrat text_color_dark-grey">Профиль</a>
-                <a href="/settings" class="navbar__option-link text_montserrat text_color_dark-grey">Баптаулар</a>
-                <a href="/settings" class="navbar__option-link text_montserrat text_color_dark-grey">Тех. қолдау</a>
+                <a href="/user_profile/" style="display: flex; flex-direction: row; align-items: center;" class="navbar__option-link text_montserrat"> <img src="../static/images/navbar__option-profile_icon.svg" alt="" style="width: 18px; height: auto; margin-right: 5px;"> Профиль</a>
+                <a href="/settings" class="navbar__option-link text_montserrat">Баптаулар</a>
+                <a href="/settings" class="navbar__option-link text_montserrat">Тех. қолдау</a>
                 <hr style="height: .1px; width: 90%; border: 0; margin: 0; background-color: rgba(88, 88, 88, 0.404);">
-                <a href="/logout" class="navbar__option-link text_montserrat text_color_dark-grey">Шығу</a>
+                <a href="/logout" class="navbar__option-link text_montserrat">Шығу</a>
             </div>
             {% endif %}
         </div>
@@ -44,6 +44,7 @@
             <input type="text" class="main-search_input text_color_dark-grey text_montserrat" placeholder="Іздеу">
         </div>
     </nav>
+    
     <div class="page">
         {% block main_info %}
 

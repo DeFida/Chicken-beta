@@ -10,7 +10,7 @@
             <img src="../static/images/test_avatar.jpg" alt="user-avatar" class="header__user-avatar">
         </div>
         <p class="header__user-name text-montserrat text_color_dark-grey">
-            dasik
+            {{current_user.username}}
             <img src="../static/images/edit.svg" alt="edit" style="width: 20px; height: 20px; margin-left: 10px; position: absolute; right: -30px;">
         </p>
         </div>
@@ -28,18 +28,27 @@
         <hr style="height: .1px; width: 95%; text-align: center; border: 0; margin: 0; background-color: rgba(88, 88, 88, 0.5);">
     <!-- question block  -->
         <div class="profile__list" name="profile__blocks" id="questions_block">
-            {% for i in range(10) %}
-                <div class="profile-question-block">
-                    <h1>asdasd</h1>
+            {% if questions == [] %}
+            <h2 style="margin-top: 15%; " class="text_color_dark-grey text_montserrat">Сіз сұрақ қоймағансыз.</h2>
+            {% else %}
+            {% for question in questions %}
+                <div class="profile__question-block">
+                    <div class="question-block_header">
+                        <h2 class="question-header__text text_color_dark-grey text_montserrat">{{question.title}}</h2>
+                    </div>
+                    <div class="question-block_content">
+                        <h2 class="question-content__text text_color_dark-grey text_montserrat">{{question.content}}</h2>
+                    </div>
                 </div>
             {% endfor %}
+            {% endif %}
         </div>
     <!-- question block  -->
 
     <!-- answer block  -->
         <div class="profile__list" name="profile__blocks" id="answers_block">
             {% for i in range(3) %}
-                <div class="profile-answer-block">
+                <div class="profile__answer-block">
                     <h1>answers</h1>
                 </div>
             {% endfor %}
@@ -49,7 +58,7 @@
     <!-- article block  -->
         <div class="profile__list" name="profile__blocks" id="articles_block">
             {% for i in range(2) %}
-                <div class="profile-article-block">
+                <div class="profile__article-block">
                     <h1>articles</h1>
                 </div>
             {% endfor %}
@@ -59,7 +68,7 @@
     <!-- subscribe block  -->
         <div class="profile__list" name="profile__blocks" id="subscribes_block">
             {% for i in range(6) %}
-                <div class="profile-subscribe-block">
+                <div class="profile__subscribe-block">
                     <h1>subscribes</h1>
                 </div>
             {% endfor %}
@@ -69,7 +78,7 @@
     <!-- like block  -->
         <div class="profile__list" name="profile__blocks" id="likes_block">
             {% for i in range(5) %}
-                <div class="profile-like-block">
+                <div class="profile__like-block">
                     <h1>likes</h1>
                 </div>
             {% endfor %}
