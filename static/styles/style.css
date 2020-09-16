@@ -648,7 +648,6 @@
     animation: main-page_image_animation 3s 1;
 }
 
-<<<<<<< HEAD
 .header__banner {
     align-self: center;
     width: 100%;
@@ -836,7 +835,6 @@
     width: 80%;
     height: 50px;
 }
-=======
 .add_question {
     border: 1px solid rgba(88, 88, 88, 0.301);
     background: white;
@@ -876,4 +874,3 @@
     font-size: 20px;
     padding: 0 10px; */
  }
->>>>>>> ce413d244748a6968ed1ecf90af25fe2377716ba

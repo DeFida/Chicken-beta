@@ -37,20 +37,6 @@
     </nav>
     <section class="main-bar">
         <div class="top-lookfor-questions_box">
-<<<<<<< HEAD
-            <form action="{{ url_for('new_qa') }}" method="POST">
-                <input type="text" id="question__title" name="question__title">
-                <textarea type="text" id="question__main-text" name="question__main-text"></textarea>
-                <input type="file"  id="file" name="file" multiple>
-                <button type="submit">Добавить</button>
-            </form>
-        </div>
-    </section>
-    <section class="side-bar-articles">
-        
-    </section>
-</section>
-=======
             <form action="{{ url_for('new_qa') }}" method="POST" enctype="multipart/form-data" class="add_question flex-column">
                 <p class="text_montserrat add_question__paragraph-main">Сұрақ</p>
                 <p class="text_montserrat add_question__paragraph">Нақты болыңыз және басқа адамға сұрақ қойғандай жазыңыз</p>
@@ -58,8 +44,8 @@
                 <p class="text_montserrat add_question__paragraph-main">Толығырақ</p>
                 <p class="text_montserrat add_question__paragraph">Жауап берушіге барынша толығырақ ақпарат беруге тырысыңыз</p>
                 <textarea type="text" name="question__main-text" style="border-radius: 5px" required class="add_question__textarea input_text"></textarea>
-                <input type="file"  id="file" name="files[]" multiple="true" accept="image/*">
-                <button type="submit" id="add_form">Жариялау</button>
+                <input type="file"  id="file" name="files[]" multiple="true" accept="image/*" style="margin: 15px 0;">
+                <button type="submit" id="add_form" class="text_montserrat" style="font-size:15px; padding: 3px 0; border-radius: 5px; border:1px solid rgb(79, 79, 79); background-color: #2F80F0; color: white;">Жариялау</button>
             </form>
         </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -72,8 +58,8 @@
             // Define your submit class or id or tag.
             $button = $('#add_form', $form); 
 
-        // Disable submit button on page ready.
-        $button.prop('disabled', 'disabled');
+        // // Disable submit button on page ready.
+        // $button.prop('disabled', 'disabled');
         $file_upload.on('change', function () {
         var number_of_images = $('#file')[0].files.length;
         if (number_of_images > max_file_number) {
@@ -86,5 +72,4 @@
         }
   });
     </script>
->>>>>>> ce413d244748a6968ed1ecf90af25fe2377716ba
 {% endblock %}
