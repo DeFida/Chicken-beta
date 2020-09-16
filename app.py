@@ -100,6 +100,7 @@ def logout():
 
 @app.route("/", methods=["GET", "POST"])
 def main():
+<<<<<<< HEAD
     return render_template("index.html", sign_type="sign_up")
 
 @app.route("/<string:mode>/", methods=["GET", "POST"])
@@ -111,6 +112,9 @@ def index(mode):
     if mode in mode_list:
         return render_template("index.html", sign_type=mode)
     return '404'
+=======
+    return render_template("index.html")
+>>>>>>> aab514f5dd19b3aa8795bf1233e245b16d7b05f7
 
 
 @app.route("/sign_up/", methods=["POST", "GET"])
@@ -134,27 +138,22 @@ def sign_up():
     session.commit()
     mkdir('users', generated_id)
     print('You were successfully logged in')
-    return redirect('/sign_in/')
+    return jsonify(error="No error")
 
 @app.route("/sign_in/", methods=["POST", "GET"])
 def sign_in():
     session = db_session.create_session()
-    username = request.form['username'].lower()
-    password = request.form['password']
+    username = request.args.get('username_in').lower()
+    password = request.args.get('password_in').lower()
     user = session.query(User).filter(User.username == username).first()
-    print(user)
     if user == None:
-        username_err = "Есімнің дұрыстығына көз жеткізіңіз"
-        flash(username_err)
-        return render_template('index.html', sign_type="sign_in", username_err=username_err)
-    if user and not check_password_hash(user.password, password):
-        password_err = "Құпиясөз қате"
-        flash(password_err)
-        return render_template('index.html', sign_type="sign_in", password_err=password_err)
-    if user and check_password_hash(user.password, password):
+        return jsonify(error="Есімнің дұрыстығына көз жеткізіңіз")
+    elif user and not check_password_hash(user.password, password):
+        return jsonify(error="Құпиясөз қате")
+    elif user and check_password_hash(user.password, password):
         print("username - " + user.username)
         login_user(user, remember=True)
-        return redirect(url_for('main'))
+        return jsonify(error="No error")
 
 
 @app.route("/questions/", methods=["GET"])
@@ -164,7 +163,10 @@ def categories():
 
 @app.route("/user_profile/", methods=["GET"])
 def user_profile():
-    return render_template("profile.html")
+    session = db_session.create_session()
+    questions = session.query(Questions).filter(Questions.user_id == current_user.id).all()[:]
+    replies = session.query(Replies).filter(Replies.user_id == current_user.id).all()[:]
+    return render_template("profile.html", questions=questions)
 
 
 @app.route("/new_qa/", methods=["POST"])
@@ -197,6 +199,7 @@ def new_qa():
             img_count += 1
             os.rename(path + '\\' + filename, path + '\\' + str(img_count) + '.' + extension)
 
+<<<<<<< HEAD
     return redirect('/categories')
 
 
@@ -205,6 +208,9 @@ def signup():
     return render_template("signup.html")
 
 
+=======
+    return redirect('/questions')
+>>>>>>> aab514f5dd19b3aa8795bf1233e245b16d7b05f7
 
 
 if __name__ == "__main__":
