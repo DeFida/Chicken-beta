@@ -213,12 +213,12 @@
 .logo__img {
     width: auto;
     height: 40px;
-    margin: 0 20px 0 0;
+    margin: 0 10px 0 0;
 }
 
 .logo_place_navbar {
     position: absolute;
-    left: 25px;
+    left: 60px;
 }
 
 .text_montserrat {
@@ -294,11 +294,20 @@
 .side-bar {
     position: fixed;
     top: 60px;
-    width: 250px;
+    width: 230px;
     height: 100%;
     border-top: 1px solid #86868685;
-    background-color: #1f1f1ffd;
+    background-color: #1f1f1f;
+    border-bottom-right-radius: 20px;
     z-index: 6;
+    transform: translate(-300px, 0);
+    transition: .5s ease-in-out;
+}
+
+.show_side_bar {
+    transition: .5s ease-in-out;
+    transform: translate(0, 0);
+    
 }
 
 .side-bar-articles {
@@ -504,13 +513,14 @@
     flex-direction: column;
     width: 90%;
     height: 50%;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 
 .sign-in_label {
     left: 15px;
     font-size: 15px;
     font-weight: normal;
+    margin: 5px 0 5px;
 }
 
 .button_sign:active {
@@ -522,7 +532,7 @@
 
 
 .input_text {
-    height: 50px;
+    height: 40px;
     outline: 0;
     border: 1px solid rgba(88, 88, 88, 0.301);
     background-color: rgb(245,255,255);
@@ -926,3 +936,33 @@
 .question-content__text {
     font-size: 20px;
 }
+
+@keyframes menu-bar_anim {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes menu-bar_anim- {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+.menu-bar_anim- {
+    animation: menu-bar_anim- 1s 1;
+}
+
+
+.animate_menu-but {
+    animation: menu-bar_anim 1s 1;
+}
+

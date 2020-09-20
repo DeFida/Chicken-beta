@@ -18,6 +18,7 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     admin = sqlalchemy.Column(sqlalchemy.Boolean, nullable=False, default=False)
     rep = orm.relation("Replies", back_populates='user')
     qst = orm.relation("Questions", back_populates='user')
+    rep = sqlalchemy.Column(sqlalchemy.Integer, default=0)
     def __repr__(self):
         return self.username
 
