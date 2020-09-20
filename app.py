@@ -155,11 +155,11 @@ def user_profile():
     return render_template("profile.html", questions=questions)
 
 
-@app.route("/new_qa/", methods=["POST"])
+@app.route("/new_qa/", methods=["POST", "GET"])
 @login_required
 def new_qa():
-    question__title = request.form['question__title']
-    question__main_text = request.form['question__main-text']
+    question__title = request.form['val1']
+    question__main_text = request.form['val2']
     generated_id = id_generator("Questions")
     session = db_session.create_session()
     q = Questions(
@@ -185,7 +185,7 @@ def new_qa():
             img_count += 1
             os.rename(path + '\\' + filename, path + '\\' + str(img_count) + '.' + extension)
 
-    return redirect('/questions')
+    return jsonify({"generated_id": generated_id})
 
 
 if __name__ == "__main__":
