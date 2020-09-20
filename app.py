@@ -100,21 +100,7 @@ def logout():
 
 @app.route("/", methods=["GET", "POST"])
 def main():
-<<<<<<< HEAD
-    return render_template("index.html", sign_type="sign_up")
-
-@app.route("/<string:mode>/", methods=["GET", "POST"])
-def index(mode):
-    print(mode)
-    mode_list = ['sign_in', 'sign_up', 'home']
-    if mode == "home" and not current_user.is_authenticated:
-        return redirect("/sign_in/")
-    if mode in mode_list:
-        return render_template("index.html", sign_type=mode)
-    return '404'
-=======
     return render_template("index.html")
->>>>>>> aab514f5dd19b3aa8795bf1233e245b16d7b05f7
 
 
 @app.route("/sign_up/", methods=["POST", "GET"])
@@ -169,11 +155,11 @@ def user_profile():
     return render_template("profile.html", questions=questions)
 
 
-@app.route("/new_qa/", methods=["POST"])
+@app.route("/new_qa/", methods=["POST", "GET"])
 @login_required
 def new_qa():
-    question__title = request.form['question__title']
-    question__main_text = request.form['question__main-text']
+    question__title = request.form['val1']
+    question__main_text = request.form['val2']
     generated_id = id_generator("Questions")
     session = db_session.create_session()
     q = Questions(
@@ -199,18 +185,7 @@ def new_qa():
             img_count += 1
             os.rename(path + '\\' + filename, path + '\\' + str(img_count) + '.' + extension)
 
-<<<<<<< HEAD
-    return redirect('/categories')
-
-
-@app.route("/signup/", methods=["POST"])
-def signup():
-    return render_template("signup.html")
-
-
-=======
-    return redirect('/questions')
->>>>>>> aab514f5dd19b3aa8795bf1233e245b16d7b05f7
+    return jsonify({"generated_id": generated_id})
 
 
 if __name__ == "__main__":
