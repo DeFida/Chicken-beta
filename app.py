@@ -111,7 +111,7 @@ def sign_up():
     session = db_session.create_session()
     if session.query(User).filter(User.username == username).first():
         return jsonify(error='Сіз жазған логин тіркелген')
-    elif session.query(User).filter(User.email == email).first():
+    if session.query(User).filter(User.email == email).first():
         return jsonify(error="Бұл e-mail тіркелген")
     generated_id=id_generator("User")
     user = User(
@@ -134,9 +134,9 @@ def sign_in():
     user = session.query(User).filter(User.username == username).first()
     if user == None:
         return jsonify(error="Есімнің дұрыстығына көз жеткізіңіз")
-    elif user and not check_password_hash(user.password, password):
+    if user and not check_password_hash(user.password, password):
         return jsonify(error="Құпиясөз қате")
-    elif user and check_password_hash(user.password, password):
+    if user and check_password_hash(user.password, password):
         print("username - " + user.username)
         login_user(user, remember=True)
         return jsonify(error="No error")

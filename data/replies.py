@@ -15,6 +15,7 @@ class Replies(SqlAlchemyBase):
     question_id = sqlalchemy.Column(sqlalchemy.Integer, 
                                 sqlalchemy.ForeignKey("questions.id"))
     generated_id = sqlalchemy.Column(sqlalchemy.String(8), nullable=False, unique=True)
+    votes = sqlalchemy.Column(sqlalchemy.Integer, default=0)
     user = orm.relation('User')
     def __str__(self):
         return self.question_id
