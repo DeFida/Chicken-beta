@@ -11,7 +11,7 @@
             <div class="add_question flex-column">
                 <p class="text_montserrat add_question__element add_question__paragraph-main">Сұрақ</p>
                 <p class="text_montserrat add_question__element add_question__paragraph">Нақты болыңыз және басқа адамға сұрақ қойғандай жазыңыз</p>
-                <input onfocus="myFunction()" class="input_text add_question__input" type="text"  id="question-title" name="question__title" placeholder="Сұрақ қою" required>
+                <input autocomplete="off" onfocus="myFunction()" class="input_text add_question__input" type="text"  id="question-title" name="question__title" placeholder="Сұрақ қою" required>
                 <p class="text_montserrat add_question__paragraph-main add_question__element" style="margin-top: 15px;">Толығырақ</p>
                 <p class="text_montserrat add_question__paragraph add_question__element">Жауап берушіге барынша толығырақ ақпарат беруге тырысыңыз</p>
                 <textarea id="question__main_text" type="text" name="question__main-text" style="border-radius: 5px" required class="add_question__element add_question__textarea input_text"></textarea>
@@ -21,15 +21,63 @@
                 </label>
                 <div class="flex-row" style="border-radius: 5px; overflow: hidden;">
                     <button type="submit" id="add_form" class="text_montserrat submit_btn add_question__element">Жариялау</button>
-                    <button type="reset" id="refresh_form" class="text_montserrat submit_btn add_question__element" style="background-color: red;">Жою</button>
+                    <button type="reset" id="refresh_form" class="text_montserrat submit_btn add_question__element text_color_light" style="background-color: #e60000;">Жою</button>
                 </div> 
             </div>
         </div>
     </section>
+    <nav class="right-side-bar flex-column_align-items_center" id="right_side_bar_id">
+        <h2 class="righ-side-bar__heading text_montserrat text_color_dark-grey"><img src="../static/images/side-bar_lenta-icon_black.svg" alt="" style="margin-right: 5px; width: 20px; height: auto;"> Өзекті мақалалар</h2>
+        <ol class="side-bar_list">
+            <li class="right-side-bar__category-box right__back">
+                <img src="../static/images/test_avatar2.jpg" alt="" class="right-side-bar__img">
+
+                <div class="righ-side-bar__information">
+                    <p class="righ-side-bar__title text_color_dark-grey text_montserrat">Жаһандану үдері...</p>
+                    <P class="righ-side-bar__information-text text_color_dark-grey text_montserrat">Бүгінгі мақалада қазіргі...</P>
+                </div>
+            </li>
+
+            <li class="right-side-bar__category-box right__back">
+                <img src="../static/images/test_avatar3.jpg" alt="" class="right-side-bar__img">
+
+                <div class="righ-side-bar__information">
+                    <p class="righ-side-bar__title text_color_dark-grey text_montserrat">Адамдар неліктен...</p>
+                    <P class="righ-side-bar__information-text text_color_dark-grey text_montserrat">Көптеген мәселелер робо...</P>
+                </div>
+            </li>
+
+            <li class="right-side-bar__category-box right__back">
+                <img src="../static/images/test_avatar4.jpg" alt="" class="right-side-bar__img">
+
+                <div class="righ-side-bar__information">
+                    <p class="righ-side-bar__title text_color_dark-grey text_montserrat">Математикалық...</p>
+                    <P class="righ-side-bar__information-text text_color_dark-grey text_montserrat">Фибоначи ережесі бойы...</P>
+                </div>
+            </li>
+            
+        </ol>
+        <h2 class="righ-side-bar__heading text_montserrat text_color_dark-grey">Топтарым <button id="add_group_button" style="width: 25px; height: 25px; position: absolute; right: 10px; margin: 0; font-size: 25px; display: flex; align-items: center; justify-content: center; cursor: pointer;" class="button button-submit text_montserrat text_color_light" onclick="window.location.href = '/new_group/'">+</button></h2>
+        <ol class="side-bar_list">
+            {% for i in range(1) %}
+            <li class="right-side-bar__category-box right__back">
+                <img src="../static/images/profile_banner.svg" alt="" class="right-side-bar__img">
+
+                <div style="width: 70%;">
+                    <p class="text_color_dark-grey text_montserrat" style="width: 100%; text-align: left;">Қазақ тілі 11B</p>
+                </div>
+            </li>
+            {% endfor %}
+            
+        </ol>
+    </nav>  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
+            const side_bar = document.getElementById('side_bar_id');
+            side_bar.classList.toggle("show_side_bar");
+            const menu_but = document.getElementById('navbar_menu_but');
+            menu_but.classList.toggle('animate_menu-but'); 
             $('#add_form').on('click', function() {
                 var val1 = $("#question-title").val();
                 var val2 = $("#question__main_text").val();

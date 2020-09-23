@@ -55,10 +55,19 @@
 
 <main class="index_main-content">
     <section class="frequently-asked-questions">
-        <h2 class="frequently-asked-questions__title text_montserrat text_color_dark-grey">Өзекті сұрақтар</h2>
+        <h2 class="frequently-asked-questions__title text_montserrat text_color_dark-grey">Соңғы сұрақтар</h2>
 
         <div class="frequently-asked-questions__box">
-            
+            {% for question in actual_q %}
+            <div class="profile__question-block">
+                <div class="question-block_header">
+                    <h2 class="question-header__text text_color_dark-grey text_montserrat">{{question.title}}</h2>
+                </div>
+                <div class="question-block_content">
+                    <h2 class="question-content__text text_color_dark-grey text_montserrat">{{question.content}}</h2>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </section>
 </main>

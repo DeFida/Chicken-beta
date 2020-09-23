@@ -15,6 +15,7 @@ from data import db_session
 from data.users import User
 from data.questions import Questions
 from data.replies import Replies
+from data.groups import Groups
 from werkzeug.security import generate_password_hash, check_password_hash
 from random import choice
 import datetime
@@ -58,6 +59,8 @@ def id_generator(model):
         var1 = session.query(User).filter(User.generated_id == generated_id).first()
     if model == "Questions":
         var1 = session.query(Questions).filter(Questions.generated_id == generated_id).first()
+    if model == "Groups":
+        var1 = session.query(Groups).filter(Groups.generated_id == generated_id).first()
     for i in range(8):
         generated_id += choice(generator_ch)
     while var1  != None:
@@ -100,7 +103,10 @@ def logout():
 
 @app.route("/", methods=["GET", "POST"])
 def main():
-    return render_template("index.html")
+    session = db_session.create_session()
+    questions = session.query(Questions).filter().all()
+    actual_q = questions[0:6]
+    return render_template("index.html", actual_q=actual_q)
 
 
 @app.route("/sign_up/", methods=["POST", "GET"])
@@ -154,6 +160,51 @@ def user_profile():
     replies = session.query(Replies).filter(Replies.user_id == current_user.id).all()[:]
     return render_template("profile.html", questions=questions)
 
+
+@app.route("/new_group/", methods=["GET", "POST"])
+def new_group():
+    return render_template("add_group.html")
+
+@app.route("/add_group/", methods=["GET", "POST"])
+@login_required
+def add_group():
+    group_name = request.args.get('group_name')
+    description = request.args.get('description')
+    generated_id = id_generator("Groups")
+    session = db_session.create_session()
+    print(group_name, description, generated_id, current_user.id)
+    g = Groups(
+        name=group_name,
+        description=description,
+        generated_id=generated_id,
+        user_id=current_user.id,
+        members_count=1,
+        members_ids=(current_user.username)
+    )
+    session.add(g)
+    session.commit()
+    path = mkdir("groups", generated_id)
+    print(path)
+    return jsonify({"generated_id": generated_id})
+
+@app.route("/members", methods=["POST", "GET"])
+def members():
+    username = request.args.get('username')
+    session = db_session.create_session()
+    member = session.query(User).all()[:]
+    list_temprary = []
+    for i in member:
+        if username in i.username:
+            list_temprary.append(i)
+    member = list_temprary[:]
+    ls = {}
+    for i in range(len(member)):
+        ls[i] = {'username': member[i].username, 'id': member[i].generated_id}
+    if member == None or username == '':
+        username = '-1-1-2-2-None-2-2-1-1-'
+        logopath = None
+    logopath = '../static/images/unknownperson.png'
+    return jsonify({'list': ls, 'username': username})
 
 @app.route("/new_qa/", methods=["POST", "GET"])
 @login_required

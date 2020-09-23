@@ -17,6 +17,11 @@ function show_navbar__user_options() {
   document.getElementById("navbar__user-options").classList.toggle("show");
 }
 
+function memadd(name) {
+  console.log(name);
+  $('#added-members').text(name);
+}
+
 
 function side_bar_button_click(id) {
   var buttons = document.getElementsByName("side_bar_button");

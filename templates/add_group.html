@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block main_info %}
+<section class="main-bar">
+
+    <form action="{{ url_for('add_group') }}" method="POST" class="add-group">
+        <h2 class="add-group__heading text_montserrat text_color_dark-grey">Топ құру</h2>
+        <div class="add_group_main-inf">
+            <div class="add-group__content">
+                <div class="add-group__img-block">
+                    <img class="add-group__img" src="../static/images/unknownperson.png">
+                    <label for="img_add_input"
+                        class="add-group__img-button-label text_montserrat text_color_dark-grey ">Өзгерту</label>
+                    <input id="img_add_input" type="file" class="add-group__img-button"></input>
+                </div>
+
+                <div class="add-group__information">
+                    <div class="add-group__information_field">
+                        <label class="add-group__group-label text_montserrat text_color_dark-grey">Топ аты</label>
+                        <input type="text" id="group-name" class="group-input input_focus">
+                    </div>
+                    <div class="add-group__information_field">
+                        <label class="add-group__group-label text_montserrat text_color_dark-grey">Сипаттама</label>
+                        <textarea type="text" id="group-description"
+                            class="group-input-textarea input_focus"></textarea>
+                    </div>
+
+                </div>
+            </div>
+            <div class="search_member">
+                <input type="text" id="group_member_input" class="add-group__search input_focus"
+                    placeholder="Есімін жазыңыз"> <button id="add_member_btn"
+                    class="button button-submit text_montserrat text_color_dark-grey"
+                    style="cursor: pointer; width: 100px; height: 100%;">Қосу</button>
+                <div class="members_block" id="members_block">
+                    <div style="margin: 0; padding: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"
+                        id="dwdqfe">Бұндай қолданушы тіркелмеген!</div>
+
+                </div>
+            </div>
+            <div class="added-members">
+                <p id="added-members"></p>
+            </div>
+        </div>
+        <button id="add_group_btn"
+            class=" button button-submit text_montserrat text_color_dark-grey add_btn">Құру</button>
+    </form>
+
+</section>
+<script>
+    $(document).ready(function () {
+        const side_bar = document.getElementById('side_bar_id');
+        side_bar.classList.toggle("show_side_bar");
+        const menu_but = document.getElementById('navbar_menu_but');
+        menu_but.classList.toggle('animate_menu-but');
+
+        $("#group_member_input").focus(function (e) {
+            const members_block = document.getElementById('members_block');
+            members_block.classList.toggle('make-display_flex');
+        });
+
+        $("#group_member_input").keyup(function (e) {
+
+            $.getJSON('/members', {
+                username: $("#group_member_input").val()
+
+            }, function (data) {
+                if (data.username == '-1-1-2-2-None-2-2-1-1-') {
+                    $('#dwdqfe').show()
+                    member__name.classList.add("make-display_flex");
+                    $('#member__name').html('');
+                    $('#member_logo').hide()
+                }
+                else {
+                    $('#dwdqfe').hide()
+                    var i;
+                    $('#members_block').empty();
+                    for (i = 0; i < Object.keys(data.list).length; i++) {
+                        console.log(data.list[i]);
+                        $('<div id="' + data.list[i]['id'] + '" value="' + data.list[i]['username'].toString() + '" onclick="memadd(' + data.list[i] + '" style="cursor: pointer; margin: 0; padding: 0; width: 100%; height: 50px; display: flex; align-items: center;"><img alt="" src="../static/images/unknownperson.png" id="member_logo" class="member_add_logo"> <p class="member__name" id="member__name">' + data.list[i]['username'] + '</p></div>').appendTo('.members_block');
+                    }
+                }
+            });
+        });
+        
+        
+
+        window.onclick = function (event) {
+
+            if (!(event.target.matches('.add-group__search'))) {
+                members_block.classList.remove('make-display_flex');
+            }
+        }
+
+        $('button#add_group_btn').on('click', function () {
+            $.getJSON('/add_group/', {
+                group_name: $("#group-name").val(),
+                description: $("#group-description").val()
+
+            }, function (data) {
+                console.log(data.generated_id);
+            });
+            return false;
+        });
+    });
+</script>
+{% endblock %}
