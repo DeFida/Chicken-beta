@@ -1,13 +1,3 @@
-// var username = document.getElementById("username");
-// var username_len = document.getElementById("username_len");
-
-// username.addEventListener("keyup", function() {
-//     var characters = username.value.split('');
-//     username_len = characters.length;
-// })
-
-
-
 // function make_sidebar_button_selected(selected_sidebar_button_name, selected_sidebar_button_id) {
 //   document.getElementById(selected_sidebar_button_id).classList.remove("back-question-box_selected");
 //   document.getElementsByName(selected_sidebar_button_name).classList.add("back-question-box_selected");

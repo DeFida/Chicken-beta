@@ -5,32 +5,116 @@
 
 {% block main_info %}
 <section class="flex-row">
-    
     <section class="main-bar">
         <div class="top-lookfor-questions_box">
             <div class="add_question flex-column">
-                <p class="text_montserrat add_question__element add_question__paragraph-main">Сұрақ</p>
-                <p class="text_montserrat add_question__element add_question__paragraph">Нақты болыңыз және басқа адамға сұрақ қойғандай жазыңыз</p>
-                <input onfocus="myFunction()" class="input_text add_question__input" type="text"  id="question-title" name="question__title" placeholder="Сұрақ қою" required>
-                <p class="text_montserrat add_question__paragraph-main add_question__element" style="margin-top: 15px;">Толығырақ</p>
-                <p class="text_montserrat add_question__paragraph add_question__element">Жауап берушіге барынша толығырақ ақпарат беруге тырысыңыз</p>
-                <textarea id="question__main_text" type="text" name="question__main-text" style="border-radius: 5px" required class="add_question__element add_question__textarea input_text"></textarea>
-                <label for="file">
-                    <input type="file"  id="file" name="files[]" multiple="true" accept="image/*" class="add_question__element display-none" style="margin: 15px 0; outline: none;">
-                    <span></span>
-                </label>
+                <p class="text_montserrat add_question__element add_question__paragraph-main">Сұрақ
+                    <span style="color: red;">*</span>
+                </p>
+                <p class="text_montserrat add_question__element add_question__paragraph">
+                    Сұрағыңыз нақты болсын (бос орындарсыз 16 символ кем дегенде)
+                </p>
+                <input maxlength="120" onfocus="myFunction()" onkeyup="countChar(this)"
+                    class="input_text add_question__input" type="text" id="question-title" name="question__title"
+                    placeholder="Сұрақ қою" required>
+                <p id="charNum1" class="add_question__element charNum1 text_montserrat">0 / 120</p>
+                <p class="text_montserrat add_question__paragraph-main add_question__element" style="margin-top: 15px;">
+                    Толығырақ
+                </p>
+                <p class="text_montserrat add_question__paragraph add_question__element">
+                    Жауап берушіге барынша
+                    толығырақ ақпарат беруге тырысыңыз
+                </p>
+                <textarea maxlength="5000" onkeyup="countChar(this)" id="question__main_text" type="text"
+                    name="question__main-text" style="border-radius: 5px" required
+                    class="add_question__element add_question__textarea input_text"></textarea>
+                <p id="charNum" class="add_question__element charNum text_montserrat">0 / 5000</p>
+                <input type="file" id="file" name="files[]" multiple="true" accept="image/*"
+                    class="add_question__element display-none" style="margin: 15px 0; outline: none;">
                 <div class="flex-row" style="border-radius: 5px; overflow: hidden;">
-                    <button type="submit" id="add_form" class="text_montserrat submit_btn add_question__element">Жариялау</button>
-                    <button type="reset" id="refresh_form" class="text_montserrat submit_btn add_question__element" style="background-color: red;">Жою</button>
-                </div> 
+                    <button type="submit" id="add_form"
+                        class="text_montserrat submit_btn add_question__element">Жариялау</button>
+                    <button type="reset" id="refresh_form" class="text_montserrat submit_btn add_question__element"
+                        style="background-color: red;">Жою</button>
+                </div>
             </div>
+            {% for q in questions %}
+            <div class="question" style="margin-top: 50px;">
+                <p class="text_montserrat add_question__paragraph-main display-block">
+                    {{ q.title }}
+                </p>
+                <p class="text_montserrat add_question__paragraph add_question__element display-block">
+                    {% if q.content == '' %}
+                <p class="text_montserrat add_question__paragraph display-block" style="margin-bottom: 0;">
+                    (толығырақ
+                    жоқ)
+                </p>
+                {% else %}
+                <p class="text_montserrat add_question__paragraph display-block" style="margin-bottom: 0;">
+                    {{ q.content }}
+                </p>
+                {% endif %}
+                </p>
+                <textarea maxlength="5000" id="ta_{{q.generated_id}}" type="text" name="reply"
+                    style="border-radius: 5px" required class="reply__textarea input_text"></textarea>
+                <div class="flex-row">
+                    <p class="text_montserrat reply_btn" question_id="{{ q.generated_id }}">
+                        <span id="rep_num{{ q.generated_id }}"
+                            style="border-right: 1px solid grey; margin-right: 5px;">{{ q.rep_num }} </span>
+                        Жауап беру
+                    </p>
+                    <p onclick="window.open('{{q.generated_id}}')" class="text_montserrat replies_btn"
+                        question_id="{{ q.generated_id }}">
+                        Жауаптарды қарау
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#add_form').on('click', function() {
+        $(document).ready(function () {
+            var max_file_number = 3;
+            var $form = $('.add_question');
+            // Define your upload field class or id or tag.
+            var $file_upload = $('#file', $form);
+            // Define your submit class or id or tag.
+            var $button = $('#add_form', $form);
+            // // Disable submit button on page ready.
+            $button.prop('disabled', true);
+
+
+            $file_upload.on('change', function () {
+                var number_of_images = $('#file')[0].files.length;
+                if (number_of_images > max_file_number) {
+                    alert(`You can upload maximum ${max_file_number} files.`);
+                    $(this).val('');
+                    $button.prop('disabled', 'disabled');
+                }
+                else {
+                    $button.prop('disabled', false);
+                }
+            });
+            $('#refresh_form').on('click', function () {
+                $("input.add_question__input").val('');
+                $("textarea.add_question__textarea").val('');
+            });
+            $('.reply_btn').on('click', function () {
+                var question_id = $(this).attr('question_id');
+                var val_textarea = $("#ta_" + question_id).val();
+                console.log(question_id);
+                console.log(val_textarea);
+                req = $.ajax({
+                    url: '/reply/',
+                    type: 'POST',
+                    data: { question_id: question_id, val_textarea: val_textarea }
+                });
+                req.done(function (data) {
+                    $('#rep_num' + question_id).text(data.rep_num + ' ');
+                });
+            });
+            $('#add_form').on('click', function () {
                 var val1 = $("#question-title").val();
                 var val2 = $("#question__main_text").val();
                 console.log(val1);
@@ -38,13 +122,38 @@
                 req = $.ajax({
                     url: '/new_qa/',
                     type: 'POST',
-                    data: { val1: val1, val2: val2}
+                    data: { val1: val1, val2: val2 }
                 });
-                req.done(function(data) {
-                    $('<div id=' + data.generated_id + ' ' + 'class="blue">' + '<p>' +val1 + '</p>' + '<p>' + val2 + '</p><br></div>').appendTo('.top-lookfor-questions_box');
+                req.done(function (data) {
+                    $('.add_question').after('<div id=' + data.generated_id + ' ' + 'class="question">' + '<p class="text_montserrat add_question__paragraph-main display-block">' + val1 + '</p>' + '<p class="text_montserrat add_question__paragraph display-block" style="margin-bottom: 0;">' + val2 + '</p><br></div>');
                 });
             });
+            $("textarea").keyup(function (e) {
+                $(this).height(30);
+                $(this).height(this.scrollHeight + parseFloat($(this).css("borderTopWidth")) + parseFloat($(this).css("borderBottomWidth")));
+            });
         });
+
+        function countChar(val) {
+            console.log();
+            var len = val.value.length;
+            var real_len = val.value.split(/[ ]+/).join().length;
+            console.log(real_len)
+            var $form = $('.add_question');
+            var $button = $('#add_form', $form);
+            if (val.classList[1] == 'add_question__input') {
+                $('#charNum1').text(len + ' / 120');
+                if (Number(real_len) > 15) {
+                    $button.prop('disabled', false);
+                }
+                else {
+                    $button.prop('disabled', true);
+                }
+            }
+            else if (val.id == 'question__main_text') {
+                $('#charNum').text(len + ' / 5000');
+            }
+        };
         function myFunction() {
             var var_ = document.getElementsByClassName("add_question__element")[0];
             if (!(var_.classList.contains('display-block'))) {
@@ -53,54 +162,34 @@
                 document.getElementsByClassName("add_question__paragraph-main")[1].classList.toggle("display-block");
                 document.getElementsByClassName("add_question__paragraph")[1].classList.toggle("display-block");
                 document.getElementsByClassName("add_question__textarea")[0].classList.toggle("display-block");
+                document.getElementsByClassName("charNum")[0].classList.toggle("display-block");
                 document.getElementById("file").classList.toggle("display-block");
                 document.getElementsByClassName("submit_btn")[0].classList.toggle("display-block");
                 document.getElementsByClassName("submit_btn")[1].classList.toggle("display-block");
-                document.getElementsByClassName('add_question__input')[0].placeholder="";
+                document.getElementsByClassName("charNum1")[0].classList.toggle("display-block");
+                document.getElementsByClassName('add_question__input')[0].placeholder = "";
             }
-            
+
         }
 
-            // Close the dropdown if the user clicks outside of it
-        window.onclick = function(event) {
-            
-            if (!(event.target.matches('.add_question') || event.target.matches('.top-lookfor-questions_box') || event.target.matches('.add_question__element') || event.target.matches('.add_question__input'))) {
-                // var question_title = document.getElementById("question-title").value();
-                // var question__main_text = document.getElementById("question__main-text").value();
-                // console.log(question_title)
-                // console.log(question__main_text)
-                document.getElementsByClassName('add_question__input')[0].placeholder="Сұрақ қою";
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+            var val1 = $("#question-title").val();
+            var val2 = $("#question__main_text").val();
+            if ((val1 == '' && val2 == '')) {
+                if (!(event.target.matches('.add_question') || event.target.matches('.top-lookfor-questions_box') || event.target.matches('.add_question__element') || event.target.matches('.add_question__input'))) {
+                    document.getElementsByClassName('add_question__input')[0].placeholder = "Сұрақ қою";
 
-                var dropdowns = document.getElementsByClassName("add_question__element");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('display-block')) {
-                        openDropdown.classList.remove('display-block');
+                    var dropdowns = document.getElementsByClassName("add_question__element");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('display-block')) {
+                            openDropdown.classList.remove('display-block');
+                        }
                     }
                 }
             }
         }
-        var
-            max_file_number = 3,
-            $form = $('form'), 
-            // Define your upload field class or id or tag.
-            $file_upload = $('#file', $form), 
-            // Define your submit class or id or tag.
-            $button = $('#add_form', $form); 
-
-        // // Disable submit button on page ready.
-        // $button.prop('disabled', 'disabled');
-        $file_upload.on('change', function () {
-        var number_of_images = $('#file')[0].files.length;
-        if (number_of_images > max_file_number) {
-            alert(`You can upload maximum ${max_file_number} files.`);
-            $(this).val('');
-            $button.prop('disabled', 'disabled');
-        } 
-        else {
-            $button.prop('disabled', false);
-        }
-  });
     </script>
-{% endblock %}
+    {% endblock %}

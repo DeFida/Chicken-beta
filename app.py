@@ -58,6 +58,8 @@ def id_generator(model):
         var1 = session.query(User).filter(User.generated_id == generated_id).first()
     if model == "Questions":
         var1 = session.query(Questions).filter(Questions.generated_id == generated_id).first()
+    if model == "Replies":
+        var1 = session.query(Questions).filter(Questions.generated_id == generated_id).first()
     for i in range(8):
         generated_id += choice(generator_ch)
     while var1  != None:
@@ -144,7 +146,17 @@ def sign_in():
 
 @app.route("/questions/", methods=["GET"])
 def categories():
-    return render_template("categories.html")
+    session = db_session.create_session()
+    q = session.query(Questions).all()[::-1]
+    return render_template("categories.html", questions=q)
+
+
+@app.route("/questions/<string:id>", methods=["GET"])
+def question(id):
+    session = db_session.create_session()
+    q = session.query(Questions).filter(Questions.generated_id == id).first()
+    reps = session.query(Replies).filter(Replies.question_id == id).all()[::-1]
+    return render_template("question.html", q=q, reps=reps)
 
 
 @app.route("/user_profile/", methods=["GET"])
@@ -155,7 +167,7 @@ def user_profile():
     return render_template("profile.html", questions=questions)
 
 
-@app.route("/new_qa/", methods=["POST", "GET"])
+@app.route("/new_qa/", methods=["POST"])
 @login_required
 def new_qa():
     question__title = request.form['val1']
@@ -171,12 +183,13 @@ def new_qa():
     session.add(q)
     session.commit()
     print(question__title, question__main_text, generated_id)
-    path = mkdir("questions", generated_id)
-    print(path)
     if 'files[]' not in request.files:
-        print(404)
+        print("nofile")
+        return jsonify({"generated_id": generated_id})
     files = request.files.getlist('files[]')
     img_count = 0
+    path = mkdir("questions", generated_id)
+    print(path)
     for file_ in files:
         extension = file_.filename.split('.')[-1]
         if file_ and allowed_file(file_.filename):
@@ -187,6 +200,27 @@ def new_qa():
 
     return jsonify({"generated_id": generated_id})
 
+
+@app.route("/reply/", methods=["POST", "GET"])
+@login_required
+def reply():
+    r_content = request.form['val_textarea']
+    q_id = request.form['question_id']
+    generated_id = id_generator("Replies")
+    session = db_session.create_session()
+    r = Replies(
+        text=r_content,
+        question_id=q_id,
+        generated_id=generated_id,
+        user_id=current_user.id
+    )
+    q_rep_num = session.query(Questions).filter(Questions.generated_id == q_id).first()
+    q_rep_num.rep_num += 1
+    rep_num = q_rep_num.rep_num
+    session.add(r)
+    session.commit()
+    print(r_content, q_id, generated_id)
+    return jsonify({"generated_id": generated_id, "rep_num": rep_num})
 
 if __name__ == "__main__":
     app.run(debug=True)

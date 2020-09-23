@@ -13,8 +13,9 @@ class Questions(SqlAlchemyBase):
     content = sqlalchemy.Column(sqlalchemy.String(2500), nullable=False, unique=False)
     user_id = sqlalchemy.Column(sqlalchemy.Integer, 
                                 sqlalchemy.ForeignKey("users.id"))
-    reply = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    reply = sqlalchemy.Column(sqlalchemy.String(8), nullable=True)
     generated_id = sqlalchemy.Column(sqlalchemy.String(8), nullable=False, unique=True)
+    rep_num = sqlalchemy.Column(sqlalchemy.Integer, default=0)
     tags = sqlalchemy.Column(sqlalchemy.String(30))
     user = orm.relation('User')
     def __str__(self):
