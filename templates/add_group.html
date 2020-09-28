@@ -14,7 +14,7 @@
                     <img class="add-group__img" src="../static/images/unknownperson.png">
                     <label for="img_add_input"
                         class="add-group__img-button-label text_montserrat text_color_dark-grey ">Өзгерту</label>
-                    <input id="img_add_input" type="file" class="add-group__img-button"></input>
+                    <input id="img_add_input" type="file" name="avatar" class="add-group__img-button"></input>
                 </div>
 
                 <div class="add-group__information">
@@ -32,9 +32,7 @@
             </div>
             <div class="search_member">
                 <input type="text" id="group_member_input" class="add-group__search input_focus"
-                    placeholder="Есімін жазыңыз"> <button id="add_member_btn"
-                    class="button button-submit text_montserrat text_color_dark-grey"
-                    style="cursor: pointer; width: 100px; height: 100%;">Қосу</button>
+                    placeholder="Есімін жазыңыз">
                 <div class="members_block" id="members_block">
                     <div style="margin: 0; padding: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"
                         id="dwdqfe">Бұндай қолданушы тіркелмеген!</div>
@@ -70,7 +68,6 @@
             }, function (data) {
                 if (data.username == '-1-1-2-2-None-2-2-1-1-') {
                     $('#dwdqfe').show()
-                    member__name.classList.add("make-display_flex");
                     $('#member__name').html('');
                     $('#member_logo').hide()
                 }
@@ -79,18 +76,19 @@
                     var i;
                     $('#members_block').empty();
                     for (i = 0; i < Object.keys(data.list).length; i++) {
-                        console.log(data.list[i]);
-                        $('<div id="' + data.list[i]['id'] + '" value="' + data.list[i]['username'].toString() + '" onclick="memadd(' + data.list[i] + '" style="cursor: pointer; margin: 0; padding: 0; width: 100%; height: 50px; display: flex; align-items: center;"><img alt="" src="../static/images/unknownperson.png" id="member_logo" class="member_add_logo"> <p class="member__name" id="member__name">' + data.list[i]['username'] + '</p></div>').appendTo('.members_block');
+                        var membername = data.list[i]['username'];
+                        $('<div id="' + data.list[i]['username'] + '" onclick="memadd(' + membername + ')" style="cursor: pointer; margin: 0; padding: 0; width: 100%; height: 50px; display: flex; align-items: center;"><img alt="" src="../static/images/unknownperson.png" id="member_logo" class="member_add_logo"> <p class="member__name" id="member__name">' + data.list[i]['username'] + '</p></div>').appendTo('.members_block');
                     }
                 }
             });
         });
-        
-        
+
+
 
         window.onclick = function (event) {
 
             if (!(event.target.matches('.add-group__search'))) {
+                const members_block = document.getElementById('members_block');
                 members_block.classList.remove('make-display_flex');
             }
         }
@@ -98,10 +96,10 @@
         $('button#add_group_btn').on('click', function () {
             $.getJSON('/add_group/', {
                 group_name: $("#group-name").val(),
-                description: $("#group-description").val()
-
+                description: $("#group-description").val(),
+                members: $("#added-members").text()
             }, function (data) {
-                console.log(data.generated_id);
+                window.location.href = '/questions';
             });
             return false;
         });

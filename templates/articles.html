@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block main_info %}
+<section class="main-bar">
+
+    <form action="{{ url_for('add_group') }}" method="POST" class="add-group">
+        <h2 class="add-group__heading text_montserrat text_color_dark-grey">Мақала жазу</h2>
+        <div class="add_group_main-inf">
+            <div class="add-group__content">
+
+                <div class="add-group__information">
+                    <div class="add-group__information_field">
+                        <label class="add-group__group-label text_montserrat text_color_dark-grey">Мақала тақырыбы</label>
+                        <input type="text" id="group-name" class="group-input input_focus">
+                    </div>
+                    <div class="add-group__information_field">
+                        <label class="add-group__group-label text_montserrat text_color_dark-grey">Мақала</label>
+                        <textarea type="text" id="group-description"
+                            class="article-input-textarea input_focus"></textarea>
+                    </div>
+
+                </div>
+            </div>
+            
+        <button id="add_group_btn"
+            class=" button button-submit text_montserrat text_color_dark-grey add_btn" style="margin-top: 150px;">Жариялау</button>
+    </form>
+
+</section>
+<script>
+    $(document).ready(function () {
+        const side_bar = document.getElementById('side_bar_id');
+        side_bar.classList.toggle("show_side_bar");
+        const menu_but = document.getElementById('navbar_menu_but');
+        menu_but.classList.toggle('animate_menu-but');
+
+
+        $('button#add_group_btn').on('click', function () {
+            $.getJSON('/add_article/', {
+                article_title: $("#group-name").val(),
+                content: $("#group-description").val()
+            }, function (data) {
+                window.location.href = '/questions';
+            });
+            return false;
+        });
+    });
+</script>
+{% endblock %}

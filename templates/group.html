@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block main_info %}
+<section class="flex-row">
+    <section class="main-bar">
+        <div class="top-lookfor-questions_box">
+            <div class="question">
+                <p class="text_montserrat add_question__paragraph-main display-block">
+                    Топ аты: {{ g.name }}
+                </p>
+            </div>
+            
+            <div class="question flex-row" style="margin-top: 50px;">
+                Қатысушылар: 
+                {% for i in members %}
+                
+                <p class="text_montserrat" style="margin-left: 10px;">
+                    {{ i }} 
+                </p>
+                {% endfor %}
+            </div>
+            <div class="question flex-row" style="margin-top: 50px;">
+                Материал жоқ
+            </div>
+            
+        </div>
+    </section>
+
+    <script>
+        $(document).ready(function () {
+            const side_bar = document.getElementById('side_bar_id');
+            side_bar.classList.toggle("show_side_bar");
+            const menu_but = document.getElementById('navbar_menu_but');
+            menu_but.classList.toggle('animate_menu-but'); 
+        });
+    </script>
+    {% endblock %}

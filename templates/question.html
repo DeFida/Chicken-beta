@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block main_info %}
+<section class="flex-row">
+    <section class="main-bar">
+        <div class="top-lookfor-questions_box">
+            <div class="question">
+                <p class="text_montserrat add_question__paragraph-main display-block">
+                    {{ q.title }}
+                </p>
+                <p class="text_montserrat add_question__paragraph add_question__element display-block">
+                    {% if q.content == '' %}
+                <p class="text_montserrat add_question__paragraph display-block" style="margin-bottom: 0;">(толығырақ
+                    жоқ)</p>
+                {% else %}
+                <p class="text_montserrat add_question__paragraph display-block" style="margin-bottom: 0;">
+                    {{ q.content }}</p>
+                {% endif %}
+                </p>
+            </div>
+            {% for i in reps %}
+            <div class="question flex-row" style="margin-top: 50px;">
+                <h3 class="text_montserrat">
+                    {{ i.user_id }}: 
+                </h3>
+                <p class="text_montserrat add_question__paragraph-main display-block">
+                    {{ i.text }}
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <script>
+        $(document).ready(function () {
+            const side_bar = document.getElementById('side_bar_id');
+            side_bar.classList.toggle("show_side_bar");
+            const menu_but = document.getElementById('navbar_menu_but');
+            menu_but.classList.toggle('animate_menu-but'); 
+        });
+    </script>
+    {% endblock %}

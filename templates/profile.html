@@ -48,11 +48,20 @@
 
     <!-- answer block  -->
         <div class="profile__list" name="profile__blocks" id="answers_block">
-            {% for i in range(3) %}
-                <div class="profile__answer-block">
-                    <h1>answers</h1>
+            {% if replies == [] %}
+            <h2 style="margin-top: 15%; " class="text_color_dark-grey text_montserrat">Сіз сұрақ қоймағансыз.</h2>
+            {% else %}
+            {% for reply in replies %}
+                <div class="profile__question-block">
+                    <div class="question-block_header">
+                        <h2 class="question-header__text text_color_dark-grey text_montserrat">Қазақстанда қанша ұлт өкілі бар?</h2>
+                    </div>
+                    <div class="question-block_content">
+                        <h2 class="question-content__text text_color_dark-grey text_montserrat">{{reply.text}}</h2>
+                    </div>
                 </div>
             {% endfor %}
+            {% endif %}
         </div>
     <!-- answer block  -->
 

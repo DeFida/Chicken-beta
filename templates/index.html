@@ -109,11 +109,16 @@ console.log('up is hid');
 function in_hide(){
     $("#sign_in_form").hide();
     $("#sign_up_form").show();
+    $('input[name="username_in"]').text("")
+    $('input[name="password_in"]').text("")
 };
 
 function up_hide(){
     $("#sign_in_form").show();
     $("#sign_up_form").hide();
+    $('input[name="username"]').text("")
+    $('input[name="email"]').text("")
+    $('input[name="password"]').text("")
 };
 
 $(function() {

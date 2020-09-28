@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block main_info %}
+<section class="flex-row">
+    <section class="main-bar">
+        {% for article in articles%}
+    <div class="question" style="margin-top: 50px;">
+        <p class="text_montserrat add_question__paragraph-main display-block">
+            {{article.title}}
+        </p>
+        <p class="text_montserrat add_question__paragraph add_question__element">
+            
+            <p class="question flex-row" style="margin-top: 50px; overflow-y: auto; overflow-x: hidden; max-width: 695px; min-height: 200px;">
+                {{ article.content }}
+            </p>
+        
+        <p></p>
+        <div class="flex-row">
+            <p onclick="window.location.href = '/articles/{{article.generated_id}}'" class="text_montserrat replies_btn" question_id="rs97iwwj">
+                Өту
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+    </section>
+    <nav class="right-side-bar flex-column_align-items_center" id="right_side_bar_id">
+        <h2 class="righ-side-bar__heading text_montserrat text_color_dark-grey">Өзекті мақалалар <button id="add_group_button" style="width: 25px; height: 25px; position: absolute; right: 10px; margin: 0; font-size: 25px; display: flex; align-items: center; justify-content: center; cursor: pointer;" class="button button-submit text_montserrat text_color_light" onclick="window.location.href = '/write_article/'">+</button></h2>
+        <ol class="side-bar_list">
+            {% for article in articles %}
+            <li class="right-side-bar__category-box right__back" onclick="window.location.href = '/articles/{{article.generated_id}}'">
+                <img src="../static/images/alphabet-m.svg" alt="" class="right-side-bar__img">
+
+                <div style="width: 70%;">
+                    <p class="text_color_dark-grey text_montserrat" style="width: 100%; text-align: left;">{{article.title[:15]}}...</p>
+                </div>
+            </li>
+            {% endfor %}
+            
+        </ol>
+        <h2 class="righ-side-bar__heading text_montserrat text_color_dark-grey">Топтарым <button id="add_group_button" style="width: 25px; height: 25px; position: absolute; right: 10px; margin: 0; font-size: 25px; display: flex; align-items: center; justify-content: center; cursor: pointer;" class="button button-submit text_montserrat text_color_light" onclick="window.location.href = '/new_group/'">+</button></h2>
+        <ol class="side-bar_list">
+            {% for group in my_groups %}
+            <li class="right-side-bar__category-box right__back" onclick="window.location.href = '/groups/{{group.generated_id}}'">
+                <img src="../static/images/profile_banner.svg" alt="" class="right-side-bar__img">
+
+                <div style="width: 70%;">
+                    <p class="text_color_dark-grey text_montserrat" style="width: 100%; text-align: left;">{{group.name}}</p>
+                </div>
+            </li>
+            {% endfor %}
+            
+        </ol>
+    </nav>  
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            const side_bar = document.getElementById('side_bar_id');
+            side_bar.classList.toggle("show_side_bar");
+            const menu_but = document.getElementById('navbar_menu_but');
+            menu_but.classList.toggle('animate_menu-but'); 
+        });
+    </script>
+    {% endblock %}

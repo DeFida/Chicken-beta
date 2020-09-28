@@ -10,7 +10,7 @@ class Groups(SqlAlchemyBase):
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, nullable=False)
     name = sqlalchemy.Column(sqlalchemy.String(150), nullable=False, unique=False)
     members_count = sqlalchemy.Column(sqlalchemy.Integer, nullable=False, unique=False)
-    members_ids = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    members = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     team_logo = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     generated_id = sqlalchemy.Column(sqlalchemy.String(8), nullable=False, unique=True)
     description = sqlalchemy.Column(sqlalchemy.String(50))
