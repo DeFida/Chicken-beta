@@ -345,4 +345,4 @@ def reply():
     return jsonify({"generated_id": generated_id, "rep_num": rep_num})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
