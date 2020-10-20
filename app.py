@@ -137,6 +137,7 @@ def sign_up():
     print('You were successfully logged in')
     return jsonify(error="No error")
 
+
 @app.route("/sign_in/", methods=["POST", "GET"])
 def sign_in():
     session = db_session.create_session()
