@@ -2,15 +2,11 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, abort
 from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
-from flask_wtf import FlaskForm
-from flask_sqlalchemy import SQLAlchemy
 from flask_caching import Cache
 from flask_login import LoginManager, logout_user, current_user, login_user, login_required
 from werkzeug.utils import secure_filename
-from datetime import datetime, timedelta
+from datetime import timedelta
 from string import ascii_lowercase, digits
-from passlib.hash import sha256_crypt
-# from forms import RegisterForm, LoginForm, AddServices, PublishServicePost
 from data import db_session
 from data.users import User
 from data.questions import Questions
@@ -19,9 +15,7 @@ from data.groups import Groups
 from data.articles import Articles
 from werkzeug.security import generate_password_hash, check_password_hash
 from random import choice
-import datetime
 import os
-from sqlalchemy import delete, update
 
 
 app = Flask(__name__)
@@ -136,6 +130,7 @@ def sign_up():
     mkdir('users', generated_id)
     print('You were successfully logged in')
     return jsonify(error="No error")
+
 
 @app.route("/sign_in/", methods=["POST", "GET"])
 def sign_in():
