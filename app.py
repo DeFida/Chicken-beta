@@ -48,6 +48,7 @@ admin.add_view(OurModelView(Replies, db_session.create_session()))
 
 def id_generator(model):
     global generator_ch
+    var1 = None
     generated_id = str()
     session = db_session.create_session()
     if model == "User":
