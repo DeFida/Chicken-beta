@@ -1,7 +1,5 @@
-import datetime
 import sqlalchemy
 from sqlalchemy import orm
-import data.users
 import data.questions
 from .db_session import SqlAlchemyBase
 

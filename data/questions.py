@@ -1,8 +1,5 @@
-import datetime
 import sqlalchemy
 from sqlalchemy import orm
-import data.users
-import data.replies
 from .db_session import SqlAlchemyBase
 
 
